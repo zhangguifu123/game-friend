@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Game\GameController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\Manager\MangagerController;
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +17,12 @@ use App\Http\Controllers\Manager\MangagerController;
 */
 
 Route::namespace('Api')->group(function (){
-    Route::post('/login',[MangagerController::class, 'check']);
+    Route::post('/manager/login',[MangagerController::class, 'check']);
     /**Game */
     Route::post('/test','Game\GameController@publish');
         Route::group(['middleware' => 'manager.check'], function () {
+            //图片上传
+            Route::post('/image',[ImageController::class, 'upload']);
             //Game增删改查
             Route::post('/game/add',[GameController::class, 'publish']);
             Route::get('/game/me/{uid}','Game\GameController@get_me_list');
