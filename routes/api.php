@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::namespace('Api')->group(function (){
+    /**Game */
+    Route::post('/test','Game\GameController@publish');
+    //Game增删改查
+    Route::post('/game/add','Game\GameController@publish');
+    Route::get('/game/me/{uid}','Game\GameController@get_me_list');
+    Route::get('/game/like/{uid}','Game\GameController@get_like_list');
+    Route::get('/game/collection/{uid}','Game\GameController@get_collection_list');
 });
