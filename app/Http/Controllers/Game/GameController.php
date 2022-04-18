@@ -39,7 +39,6 @@ class GameController extends Controller
             "subject"        => ["string", "nullable"],
             "type"           => ["string", "nullable"],
             "level"          => ["string"],
-            "collections"    => ["string", "nullable"],
         ];
         //是否缺失参数
         if (!$request->has(array_keys($mod))){
