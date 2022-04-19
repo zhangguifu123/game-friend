@@ -42,12 +42,9 @@ class GameController extends Controller
                 "game_time", "organizer", "collections", "img", "created_at"
             ])
             ->toArray();
-
-        foreach ($gameList as $i => $item){
-            $evaluation_list[$i]['commentSum'] = EatestComments::query()->where('eatest_id',$item['id'])->count();
-        }
-        $message['total'] = $gameSum;
-        $message['limit'] = $limit;
+	$message['gameList'] = $gameList;
+        $message['total']    = $gameSum;
+        $message['limit']    = $limit;
         if (isset($message['token'])){
             return msg(13,$message);
         }

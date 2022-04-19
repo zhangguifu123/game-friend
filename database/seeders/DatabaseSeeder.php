@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +16,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert(
+        DB::table('managers')->insert(
             [
                 [
-                    'phone'    => '123456',
-                    'password' => Hash::make('123456'),
+		    'name'     => '爱着雄雄的小华华',
+                    'phone'    => '12345678',
+                    'password' => Hash::make('12345678'),
                     'department' => '华哥yyds',
                     'level'   => 0,
                     'api_token' => Str::random(60),

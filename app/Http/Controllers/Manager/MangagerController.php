@@ -7,6 +7,7 @@ use App\Models\Manager\Manager;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class MangagerController extends Controller
 {
