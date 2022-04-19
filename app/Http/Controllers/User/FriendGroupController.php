@@ -11,7 +11,12 @@ use Illuminate\Support\Facades\Validator;
 class FriendGroupController extends Controller
 {
     public function make(Request $request){
-        $group = new Group(['user_id' => $request->id, 'group' => json_encode([$request->friend])]);
+        //通过路由获取前端数据，并判断数据格式
+        $data = $this->_dataHandle($request, 1);
+        if (!is_array($data)) {
+            return $data;
+        }
+        $group = new Group(['user_id' => $request->route('uid'), 'group' => $data['friends'], 'name' => $data['groupName']]);
         $group->save();
         return msg(0, __LINE__);
     }
@@ -19,7 +24,7 @@ class FriendGroupController extends Controller
     public function add(Request $request){
 
         //通过路由获取前端数据，并判断数据格式
-        $data = $this->_dataHandle($request);
+        $data = $this->_dataHandle($request, 2);
         if (!is_array($data)) {
             return $data;
         }
@@ -40,7 +45,7 @@ class FriendGroupController extends Controller
     //移除群成员
     public function delete(Request $request){
         //通过路由获取前端数据，并判断数据格式
-        $data = $this->_dataHandle($request);
+        $data = $this->_dataHandle($request, 2);
         if (!is_array($data)) {
             return $data;
         }
@@ -59,12 +64,20 @@ class FriendGroupController extends Controller
         return msg(0, $groupList);
     }
     //检查函数
-    private function _dataHandle(Request $request = null){
+    private function _dataHandle(Request $request = null, $num){
         //声明理想数据格式
-        $mod = [
-            "friend"    => ["string"],
-            "user_id"  => ["string"],
-        ];
+        if ($num == 1) {
+            $mod = [
+                "friends"    => ["json"],
+                "groupName"  => ["string"],
+            ];
+        } else {
+            $mod = [
+                "user_id"    => ["string"],
+                "group_id"   => ["string"],
+            ];
+        }
+
         //是否缺失参数
         if (!$request->has(array_keys($mod))){
             return msg(1,__LINE__);
