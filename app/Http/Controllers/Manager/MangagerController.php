@@ -52,7 +52,7 @@ class MangagerController extends Controller
         }
         if (Hash::check($data['password'], $user->password)) { //匹配数据库中的密码
             return msg(0,['token'=>$user->api_token]);
-        } else {
+        } else { 
             return msg(1,__LINE__);
         }
     }

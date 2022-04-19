@@ -15,6 +15,8 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id')->comment('用户id')->index();
+            $table->string('group')->comment('小组');
             $table->timestamps();
         });
     }
