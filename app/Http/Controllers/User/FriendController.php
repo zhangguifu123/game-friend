@@ -68,7 +68,7 @@ class FriendController extends Controller
         return msg(0, __LINE__);
     }
     //检查函数
-    private function _dataHandle(Request $request = null, $num){
+    private function _dataHandle(Request $request = null){
         //声明理想数据格式
             $mod = [
                 "friends"    => ["array"],
