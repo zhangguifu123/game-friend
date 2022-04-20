@@ -16,7 +16,7 @@ class FriendGroupController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $group = new Group(['user_id' => $request->route('uid'), 'group' => $data['friends'], 'name' => $data['groupName']]);
+        $group = new Group(['user_id' => $request->route('uid'), 'group' => json_encode($data['friends']), 'name' => $data['groupName']]);
         $group->save();
         return msg(0, __LINE__);
     }
@@ -68,12 +68,12 @@ class FriendGroupController extends Controller
         //声明理想数据格式
         if ($num == 1) {
             $mod = [
-                "friends"    => ["json"],
+                "friends"    => ["array"],
                 "groupName"  => ["string"],
             ];
         } else {
             $mod = [
-                "user_id"    => ["string"],
+                "friend"     => ["string"],
                 "group_id"   => ["string"],
             ];
         }
