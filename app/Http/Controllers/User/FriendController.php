@@ -42,7 +42,9 @@ class FriendController extends Controller
             ['friend_id', $request->route('user_id')],
             ['user_id', $data['friend']]
         ])->first();
-
+        if (!$friendRelation){
+            return msg(11 , __LINE__);
+        }
         $friendRelation->update(['status' => 1]);
         return msg(0, __LINE__);
     }
