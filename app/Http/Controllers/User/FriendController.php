@@ -37,7 +37,11 @@ class FriendController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $friendRelation = Friend::query()->where('friend_id', $request->route('user_id'))->where('user_id', $data['friend'])->first();
+
+        $friendRelation = Friend::query()->where([
+            ['friend_id', $request->route('user_id')],
+            ['user_id', $data['friend']]
+        ])->first();
 
         $friendRelation->update(['status' => 1]);
         return msg(0, __LINE__);
