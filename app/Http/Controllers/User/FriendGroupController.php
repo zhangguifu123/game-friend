@@ -18,7 +18,7 @@ class FriendGroupController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $groupData    = ['master_id' => $request->route('uid'), 'name' => $data['groupName']];
+        $groupData    = ['user_id' => $request->route('uid'), 'name' => $data['groupName']];
         $group   = new Group($groupData);
         $group->save();
         $masterId = $request->route('uid');
