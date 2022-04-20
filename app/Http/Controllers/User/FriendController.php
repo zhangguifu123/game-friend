@@ -16,8 +16,16 @@ class FriendController extends Controller
             return msg(3 , __LINE__);
         }
         $firstFriend = Friend::query()->where('user_id',   $request->route('uid'))->get('friend_id')->toArray();
+        if (!$firstFriend) {
+            $firstFriend = [];
+        }
         $lastFriend  = Friend::query()->where('friend_id', $request->route('uid'))->get('user_id')->toArray();
+        if (!$lastFriend) {
+            $lastFriend = [];
+        }
         $friendIds   = $firstFriend + $lastFriend;
+        print_r($friendIds);
+        die();
         $friends = User::query()->whereIn('id', $friendIds)->get(['id','name','img'])->toArray();
         return msg(0, $friends);
     }
