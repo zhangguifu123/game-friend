@@ -17,6 +17,7 @@ class CreateGroupsTable extends Migration
             $table->id();
             $table->string('user_id')->comment('用户id')->index();
             $table->string('name')->comment('小组名称');
+            $table->string('img')->comment('小组头像')->default(0);
             $table->timestamps();
         });
     }

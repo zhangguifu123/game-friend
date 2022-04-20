@@ -15,6 +15,12 @@ class CreateTipsTable extends Migration
     {
         Schema::create('tips', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->comment('反馈人');
+            $table->string('reporter', 20)->comment('反馈人姓名');
+            $table->string('title', 20)->comment('反馈理由');
+            $table->string('content')->comment('反馈描述')->default(0);
+            $table->boolean('status')->default(0)->comment('是否审核');
+            $table->json('img')->comment('图片');
             $table->timestamps();
         });
     }
