@@ -101,7 +101,6 @@ class GameController extends Controller
             "game_time"      => ["string", "nullable"],
             "organizer"      => ["string"],
             "subject"        => ["string", "nullable"],
-            "type"           => ["string", "nullable"],
             "level"          => ["string"],
         ];
         //是否缺失参数

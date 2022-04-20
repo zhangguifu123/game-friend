@@ -29,6 +29,11 @@ Route::namespace('Api')->group(function (){
     Route::post('/group/add/{uid}', [FriendGroupController::class, 'add']);
     Route::delete('/group/{uid}', [FriendGroupController::class, 'deleteGroup']);
     Route::delete('/group/person/{uid}', [FriendGroupController::class, 'delete']);
+    //反馈Tip
+    Route::get('/tip/list/{page}',[GameController::class, 'getList']);
+    Route::post('/tip/add',[GameController::class, 'publish']);
+    Route::delete('/tip/{id}',[GameController::class, 'delete']);
+    Route::put('/tip/{id}',[GameController::class, 'update']);
     /**Game */
     Route::get('/game/list/{page}',[GameController::class, 'getList']);
     Route::group(['middleware' => 'manager.check'], function () {
