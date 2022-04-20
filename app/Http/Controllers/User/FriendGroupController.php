@@ -4,8 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User\Group;
+use App\Models\User\GroupRelation;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class FriendGroupController extends Controller
@@ -16,13 +18,31 @@ class FriendGroupController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $friends = [];
-        foreach ($data['friends'] as $value) {
-            $friends[$value] = 1;
-        }
-        $group = new Group(['user_id' => $request->route('uid'), 'group' => json_encode($friends), 'name' => $data['groupName']]);
+        $groupData    = ['master_id' => $request->route('uid'), 'name' => $data['groupName']];
+        $group   = new Group($groupData);
         $group->save();
+        $masterId = $request->route('uid');
+        $groupId = DB::table('group')->insertGetId($data);
+        foreach ($data['friends'] as $value) {
+            $groupRelation = new GroupRelation(['group_id' => $groupId, 'user_id' => $value, 'master_id' => $masterId]);
+            $groupRelation->save();
+        }
         return msg(0, __LINE__);
+    }
+
+    public function getJoinList(Request $request){
+        if (!$request->route('uid')) {
+            return msg(3 , __LINE__);
+        }
+        $group = GroupRelation::query()->where('user_id', $request->route('uid'))->get('group_id')->toArray();
+        return msg(0, $group);
+    }
+    public function getMeList(Request $request){
+        if (!$request->route('uid')) {
+            return msg(3 , __LINE__);
+        }
+        $group = Group::query()->where('user_id', $request->route('uid'))->get('id')->toArray();
+        return msg(0, $group);
     }
     //添加群成员
     public function add(Request $request){
@@ -32,21 +52,28 @@ class FriendGroupController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $group = Group::query()->find($data["group_id"]);
-        if (!$group) {
+        $groupId = Group::query()->find($data["group_id"])->id;
+        if (!$groupId) {
             return msg(3, "目标不存在" . __LINE__);
         }
-        $groupList = json_decode($group['group'], true);
-        if (!key_exists($data['friend'], $groupList)) {
-            $groupList[$data['friend']] = 1;
-        } else {
-            return msg(4, __LINE__);
-        }
-        $group->group = json_encode($groupList);
-	$group->save();
-        return msg(0, $groupList);
+        $masterId = $request->route('uid');
+        $groupRelation = new GroupRelation(['group_id' => $groupId, 'user_id' => $data['friend'], 'master_id' => $masterId]);
+        $groupRelation->save();
+        return msg(0, __LINE__);
     }
-
+    //删除群聊
+    public function deleteGroup(Request $request){
+        //通过路由获取前端数据，并判断数据格式
+        if (!$request->input('groupId')){
+            return msg(11, __LINE__);
+        }
+        $group = Group::query()->find($request->input('groupId'));
+        if (!$group) {
+            return msg(11, __LINE__);
+        }
+        $group->delete();
+        return msg(0, __LINE__);
+    }
     //移除群成员
     public function delete(Request $request){
         //通过路由获取前端数据，并判断数据格式
@@ -58,15 +85,12 @@ class FriendGroupController extends Controller
         if (!$group) {
             return msg(3, "目标不存在" . __LINE__);
         }
-        $groupList = json_decode($group['group'], true);
-        if (key_exists($data['friend'], $groupList)) {
-            unset($groupList[$data['friend']]);
-        } else {
-            return msg(4, __LINE__);
+        $groupRelation = GroupRelation::query()->where('user_id', $data['friend']);
+        if (!$groupRelation) {
+            return msg(11, __LINE__);
         }
-        $group->group = json_encode($groupList);
-	$group->save();
-        return msg(0, $groupList);
+        $groupRelation->delete();
+        return msg(0, __LINE__);
     }
     //检查函数
     private function _dataHandle(Request $request = null, $num){

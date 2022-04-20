@@ -22,9 +22,13 @@ Route::namespace('Api')->group(function (){
     Route::post('/manager/login',[MangagerController::class, 'check']);
     //图片上传
     Route::post('/image', [ImageController::class, 'upload']);
+    //群聊
     Route::post('/group/{uid}', [FriendGroupController::class, 'make']);
+    Route::get('/group/me/{uid}', [FriendGroupController::class, 'getMeList']);
+    Route::get('/group/join/{uid}', [FriendGroupController::class, 'getJoinList']);
     Route::post('/group/add/{uid}', [FriendGroupController::class, 'add']);
-    Route::delete('/group/del/{uid}', [FriendGroupController::class, 'delete']);
+    Route::delete('/group/{uid}', [FriendGroupController::class, 'deleteGroup']);
+    Route::delete('/group/person/{uid}', [FriendGroupController::class, 'delete']);
     /**Game */
     Route::get('/game/list/{page}',[GameController::class, 'getList']);
     Route::group(['middleware' => 'manager.check'], function () {
