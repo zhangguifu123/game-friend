@@ -22,7 +22,7 @@ class FriendGroupController extends Controller
         $group   = new Group($groupData);
         $group->save();
         $masterId = $request->route('uid');
-        $groupId = DB::table('group')->insertGetId($data);
+        $groupId = Group::query()->where('user_id', $masterId)->where('name', $data['groupName'])->first()->id;
         foreach ($data['friends'] as $value) {
             $groupRelation = new GroupRelation(['group_id' => $groupId, 'user_id' => $value, 'master_id' => $masterId]);
             $groupRelation->save();
