@@ -71,7 +71,7 @@ class FriendController extends Controller
     private function _dataHandle(Request $request = null){
         //声明理想数据格式
             $mod = [
-                "friends"    => ["array"],
+                "friend"    => ["string"],
             ];
 
         //是否缺失参数
