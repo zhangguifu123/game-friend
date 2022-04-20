@@ -35,13 +35,17 @@ class FriendGroupController extends Controller
             return msg(3 , __LINE__);
         }
         $group = GroupRelation::query()->where('user_id', $request->route('uid'))->get('group_id')->toArray();
+        $groupIds = [];
+        foreach ($group as $value) {
+            $groupIds[] = $value['group_id'];
+        }
         return msg(0, $group);
     }
     public function getMeList(Request $request){
         if (!$request->route('uid')) {
             return msg(3 , __LINE__);
         }
-        $group = Group::query()->where('user_id', $request->route('uid'))->get('id')->toArray();
+        $group = Group::query()->where('user_id', $request->route('uid'))->get()->toArray();
         return msg(0, $group);
     }
     //添加群成员
