@@ -17,6 +17,7 @@ class CreateFriendsTable extends Migration
             $table->id();
             $table->string('user_id')->comment('用户id')->index();
             $table->string('friend_id')->comment('好友id');
+            $table->string('status')->comment('是否确认')->default(0);
             $table->timestamps();
         });
     }
