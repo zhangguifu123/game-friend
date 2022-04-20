@@ -39,7 +39,7 @@ class FriendGroupController extends Controller
         foreach ($group as $value) {
             $groupIds[] = $value['group_id'];
         }
-        $group = Group::query()->whereIn('group_id', $groupIds)->get()->toArray();
+        $group = Group::query()->whereIn('id', $groupIds)->get()->toArray();
         return msg(0, $group);
     }
     public function getMeList(Request $request){
