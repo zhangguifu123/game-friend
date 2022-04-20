@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\User\Friend;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FriendController extends Controller
 {
