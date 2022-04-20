@@ -67,7 +67,7 @@ class FriendController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $friendRelation = Friend::query()->where('friend_id', $data['friend'])->where('user_id', $request->route('user_id'));
+        $friendRelation = Friend::query()->where('friend_id', $data['friend'])->where('user_id', $request->route('user_id'))->first();
         if (!$friendRelation) {
             return msg(11, __LINE__);
         }
