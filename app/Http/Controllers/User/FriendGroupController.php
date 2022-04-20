@@ -16,7 +16,11 @@ class FriendGroupController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $group = new Group(['user_id' => $request->route('uid'), 'group' => json_encode($data['friends']), 'name' => $data['groupName']]);
+        $friends = [];
+        foreach ($data as $value) {
+            $friends[$value] = 1;
+        }
+        $group = new Group(['user_id' => $request->route('uid'), 'group' => json_encode($friends), 'name' => $data['groupName']]);
         $group->save();
         return msg(0, __LINE__);
     }
@@ -28,13 +32,13 @@ class FriendGroupController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $group = Group::query()->find($data["user_id"]);
+        $group = Group::query()->find($data["group_id"]);
         if (!$group) {
             return msg(3, "目标不存在" . __LINE__);
         }
         $groupList = json_decode($group['group'], true);
         if (!key_exists($data['friend'], $groupList)) {
-            $groupList += $data['friend'];
+            $groupList[$data['friend']] = 1;
         } else {
             return msg(4, __LINE__);
         }
@@ -49,14 +53,13 @@ class FriendGroupController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $group = Group::query()->find($data["user_id"]);
+        $group = Group::query()->find($data["group_id"]);
         if (!$group) {
             return msg(3, "目标不存在" . __LINE__);
         }
         $groupList = json_decode($group['group'], true);
         if (key_exists($data['friend'], $groupList)) {
-            $targetId = array_search($data['friend'], $groupList);
-            unset($groupList[$targetId]);
+            unset($groupList[$data['friend']]);
         } else {
             return msg(4, __LINE__);
         }
