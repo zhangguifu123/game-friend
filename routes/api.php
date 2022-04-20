@@ -24,7 +24,7 @@ Route::namespace('Api')->group(function (){
     Route::post('/image', [ImageController::class, 'upload']);
     //添加好友、删除好友
     Route::post('/friend/add/{uid}', [FriendController::class, 'add']);
-    Route::delete('/friend/del/{uid}', [FriendController::class, 'deleteGroup']);
+    Route::delete('/friend/del/{uid}', [FriendController::class, 'delete']);
     Route::get('/friend/me/{uid}', [FriendController::class, 'getMeList']);
     Route::get('/friend/notice/{uid}', [FriendController::class, 'getNotice']);
     Route::put('/friend/{uid}', [FriendController::class, 'updateStatus']);
