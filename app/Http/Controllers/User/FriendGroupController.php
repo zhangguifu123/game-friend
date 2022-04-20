@@ -108,7 +108,7 @@ class FriendGroupController extends Controller
         } else {
             $mod = [
                 "friend"     => ["string"],
-                "group_id"   => ["string"],
+                "groupId"   => ["string"],
             ];
         }
 
