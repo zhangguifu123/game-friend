@@ -57,7 +57,7 @@ class FriendGroupController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $groupId = Group::query()->find($data["group_id"])->id;
+        $groupId = Group::query()->find($data["groupId"])->id;
         if (!$groupId) {
             return msg(3, "目标不存在" . __LINE__);
         }
