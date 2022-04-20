@@ -24,7 +24,7 @@ Route::namespace('Api')->group(function (){
     Route::post('/image', [ImageController::class, 'upload']);
     Route::post('/group/{uid}', [FriendGroupController::class, 'make']);
     Route::post('/group/add/{uid}', [FriendGroupController::class, 'add']);
-    Route::post('/group/del/{uid}', [FriendGroupController::class, 'delete']);
+    Route::delete('/group/del/{uid}', [FriendGroupController::class, 'delete']);
     /**Game */
     Route::get('/game/list/{page}',[GameController::class, 'getList']);
     Route::group(['middleware' => 'manager.check'], function () {

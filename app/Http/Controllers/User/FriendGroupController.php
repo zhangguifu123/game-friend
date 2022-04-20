@@ -17,7 +17,7 @@ class FriendGroupController extends Controller
             return $data;
         }
         $friends = [];
-        foreach ($data as $value) {
+        foreach ($data['friends'] as $value) {
             $friends[$value] = 1;
         }
         $group = new Group(['user_id' => $request->route('uid'), 'group' => json_encode($friends), 'name' => $data['groupName']]);
@@ -43,6 +43,7 @@ class FriendGroupController extends Controller
             return msg(4, __LINE__);
         }
         $group->group = json_encode($groupList);
+	$group->save();
         return msg(0, $groupList);
     }
 
@@ -64,6 +65,7 @@ class FriendGroupController extends Controller
             return msg(4, __LINE__);
         }
         $group->group = json_encode($groupList);
+	$group->save();
         return msg(0, $groupList);
     }
     //检查函数
