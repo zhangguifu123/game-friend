@@ -69,7 +69,7 @@ class FriendController extends Controller
         }
         $friendRelation = Friend::query()->where([
             ['friend_id', $data['friend']],
-            ['user_id', $request->route('user_id')],
+            ['user_id', $request->route('uid')],
         ])->first();
         if (!$friendRelation) {
             return msg(11, __LINE__);
