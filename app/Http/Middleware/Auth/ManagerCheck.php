@@ -21,7 +21,11 @@ class ManagerCheck
         $model = new Manager();
         $isManager = $request->header('Authorization');
         $Authorization    = substr($isManager, 7);
-        $level     = $model::query()->where('api_token', $Authorization)->first()->level;
+        $level  = $model::query()->where('api_token', $Authorization)->first();
+        if (!$level) {
+            return response(msg(13, __LINE__));
+        }
+        $level  = $level->level;
         if ($level != 0) {
             return response(msg(10, __LINE__));
         }
