@@ -7,6 +7,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\Manager\MangagerController;
 use App\Http\Controllers\User\FriendGroupController;
 use App\Http\Controllers\User\FriendController;
+use App\Http\Controllers\User\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,6 +21,7 @@ use App\Http\Controllers\User\FriendController;
 
 Route::namespace('Api')->group(function (){
     Route::post('/manager/login',[MangagerController::class, 'check']);
+    Route::post('/sessionRemember',[UserController::class, 'register']);
     //图片上传
     Route::post('/image', [ImageController::class, 'upload']);
     //添加好友、删除好友
