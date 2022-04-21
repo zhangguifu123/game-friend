@@ -23,6 +23,12 @@ class UserController extends Controller
             ],
         ]);
         $res    = json_decode( $response->getBody(), true);
+        if ($res){
+            print_r($res);
+        }else {
+            return msg(4, __LINE__);
+        }
+        die();
         $result = [];
         $result['openid']      = $res['openid'];
         $result['session_key'] = $res['session_key'];
