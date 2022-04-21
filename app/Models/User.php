@@ -19,7 +19,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'openid',
-        'session_key',
+        'name',
+        'avatar',
     ];
 
     /**
