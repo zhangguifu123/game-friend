@@ -27,7 +27,7 @@ class FriendGroupController extends Controller
             $groupRelation = new GroupRelation(['group_id' => $groupId, 'user_id' => $value, 'master_id' => $masterId]);
             $groupRelation->save();
         }
-        return msg(0, __LINE__);
+        return msg(0, $group);
     }
 
     public function getJoinList(Request $request){

@@ -23,6 +23,8 @@ use App\Http\Controllers\User\PostController;
 Route::namespace('Api')->group(function (){
     Route::post('/manager/login',[MangagerController::class, 'check']);
     Route::post('/login',[UserController::class, 'login']);
+    //征友贴评论区
+
     //征友贴
     Route::post('/posts/add',[PostController::class, 'publish']);
     Route::delete('/posts/{id}',[PostController::class, 'delete']);

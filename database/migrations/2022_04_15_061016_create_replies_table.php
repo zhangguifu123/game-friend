@@ -15,6 +15,13 @@ class CreateRepliesTable extends Migration
     {
         Schema::create('replies', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('comment_id')->index()->unsigned()->comment('评论id');
+            $table->bigInteger('fromId')->index()->unsigned()->comment('评论者id');
+            $table->string('fromName')->comment('评论者昵称');
+            $table->boolean("status")->comment("0未查看 1已查看");
+            $table->bigInteger('toId')->comment('被评论者id');
+            $table->string('fromAvatar')->comment('评论者头像');
+            $table->string("content")->comment("回复内容");
             $table->timestamps();
         });
     }
