@@ -21,7 +21,7 @@ use App\Http\Controllers\User\UserController;
 
 Route::namespace('Api')->group(function (){
     Route::post('/manager/login',[MangagerController::class, 'check']);
-    Route::post('/sessionRemember',[UserController::class, 'register']);
+    Route::post('/login',[UserController::class, 'login']);
     //图片上传
     Route::post('/image', [ImageController::class, 'upload']);
     //添加好友、删除好友

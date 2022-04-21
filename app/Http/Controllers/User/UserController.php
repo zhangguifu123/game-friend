@@ -11,43 +11,40 @@ use GuzzleHttp;
 
 class UserController extends Controller
 {
-    public function register(Request $request = null){
+    public function login(Request $request = null){
         //通过路由获取前端数据，并判断数据格式
-        if (!$request->input('js_code')){
-            return msg(11, __LINE__);
+        $data = $this->_dataHandle($request);
+        if (!is_array($data)) {
+            return $data;
         }
         $http = new GuzzleHttp\Client;
         $response = $http->get('https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
 ', [
             'form_params' => [
                 'appid'      => 'wx434e0e175cbdd8a5',
-                'secret'     => 'dc5793927faff4b09e60255fc206ea79-id',
+                'secret'     => 'dc5793927faff4b09e60255fc206ea79',
                 'grant_type' => 'authorization_code',
-                'js_code'    => $request->input('js_code'),
+                'js_code'    => $data['js_code'],
             ],
         ]);
         $res    = json_decode( $response->getBody(), true);
-        if ($res){
-            print_r($res);
-        }else {
-            return msg(4, __LINE__);
+        $data['openid']      = $res['openid'];
+        $check = User::query()->where('openid',$res['openid'])->first();
+        if (!$check){
+            $User   = new User($data);
+            $result = $User->save();
+        }else{
+            $result = $check->get()->toArray();
         }
-        die();
-        $result = [];
-        $result['openid']      = $res['openid'];
-        $result['session_key'] = $res['session_key'];
-
-        $User = new User($result);
-        $User->save();
-        return msg(0, $res);
+        return msg(0, $result);
     }
-    //
     //检查函数
     private function _dataHandle(Request $request = null){
         //声明理想数据格式
         $mod = [
-            "group"    => ["string"],
-            "user_id"  => ["string"],
+            "name"    => ["string"],
+            "js_code"  => ["string"],
+            "avatar"  => ["json"],
         ];
         //是否缺失参数
         if (!$request->has(array_keys($mod))){
