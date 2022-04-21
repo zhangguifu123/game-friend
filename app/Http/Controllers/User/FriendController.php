@@ -32,9 +32,7 @@ class FriendController extends Controller
             $id  = array_values($value);
             $friendIds[] = $id[0];
         }
-        print_r($friendIds);
-        die();
-        $friends = User::query()->whereIn('id', $friendIds)->get(['id','name','img'])->toArray();
+        $friends = User::query()->whereIn('id', $friendIds)->get(['openid','name','avatar'])->toArray();
         return msg(0, $friends);
     }
     public function getNotice(Request $request){
