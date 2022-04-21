@@ -28,9 +28,9 @@ class UserController extends Controller
             ],
         ]);
         $res    = json_decode( $response->getBody(), true);
-	if(!key_exists('openid',$res)){
-	    return msg(4, $res);
-	}
+        if(!key_exists('openid',$res)){
+            return msg(4, $res);
+        }
         $data['openid']      = $res['openid'];
         $check = User::query()->where('openid',$res['openid'])->first();
         if (!$check){
