@@ -35,7 +35,7 @@ class UserController extends Controller
         $check = User::query()->where('openid',$res['openid'])->first();
         if (!$check){
             $User   = new User($data);
-            $result = $User->save();
+            $result = $User->info();
         }else{
             $result = $check->get()->toArray();
         }
