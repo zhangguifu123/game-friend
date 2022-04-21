@@ -23,8 +23,8 @@ class FriendController extends Controller
         if (!$lastFriend) {
             $lastFriend = [];
         }
-        $friendIds   = $firstFriend + $lastFriend;
-        print_r($friendIds);
+        print_r($lastFriend);
+        print_r($firstFriend);
         die();
         $friends = User::query()->whereIn('id', $friendIds)->get(['id','name','img'])->toArray();
         return msg(0, $friends);
