@@ -4,8 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\User\Group;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use GuzzleHttp;
 
@@ -32,7 +32,8 @@ class UserController extends Controller
             return msg(4, $res);
         }
         $data['openid']      = $res['openid'];
-        $check = User::query()->where('openid',$res['openid'])->first();
+
+        $check = DB::table('users')->where('openid', $res['openid'])->first();
         if (!$check){
             $User   = new User($data);
             $result = $User->info();

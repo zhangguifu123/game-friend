@@ -8,6 +8,7 @@ use App\Http\Controllers\Manager\MangagerController;
 use App\Http\Controllers\User\FriendGroupController;
 use App\Http\Controllers\User\FriendController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\PostController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,6 +23,11 @@ use App\Http\Controllers\User\UserController;
 Route::namespace('Api')->group(function (){
     Route::post('/manager/login',[MangagerController::class, 'check']);
     Route::post('/login',[UserController::class, 'login']);
+    //征友贴
+    Route::post('/post/add',[PostController::class, 'publish']);
+    Route::delete('/post/{id}',[PostController::class, 'delete']);
+    Route::put('/post/{id}',[PostController::class, 'update']);
+    Route::get('/post/list/{page}',[PostController::class, 'getList']);
     //图片上传
     Route::post('/image', [ImageController::class, 'upload']);
     //添加好友、删除好友
@@ -32,6 +38,7 @@ Route::namespace('Api')->group(function (){
     Route::put('/friend/{uid}', [FriendController::class, 'updateStatus']);
     //群聊
     Route::post('/group/{uid}', [FriendGroupController::class, 'make']);
+    Route::get('/group/{groupId}', [FriendGroupController::class, 'getOneGroup']);
     Route::get('/group/me/{uid}', [FriendGroupController::class, 'getMeList']);
     Route::get('/group/join/{uid}', [FriendGroupController::class, 'getJoinList']);
     Route::post('/group/add/{uid}', [FriendGroupController::class, 'add']);

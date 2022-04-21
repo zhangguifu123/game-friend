@@ -18,15 +18,12 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger("publisher")->comment("发布者id");
             $table->string("name")->comment("发布者名称");
             $table->string("title")->comment("标题");
-            $table->json("label")->comment("标签");
-            $table->string("topic")->nullable()->comment("参与话题");
-            $table->string("content");
-            $table->integer( "top")->default(0)->comment("置顶");
-            $table->double("score")->index()->default(0)->comment("排序分值");
+            $table->string("theme")->comment("主题");
+            $table->string("level")->comment("等级");
+            $table->string("content")->comment("内容");
+            $table->string('img')->comment('图片链接');
             $table->integer("views")->default(0)->comment("浏览量");
             $table->integer("collections")->default(0)->comment("被收藏次数");
-            $table->integer("like")->default(0)->comment("赞数");
-            $table->integer("status")->default(0)->comment("0待审核 1上架 2下架");
             $table->timestamps();
         });
     }

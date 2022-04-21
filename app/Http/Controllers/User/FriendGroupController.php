@@ -18,7 +18,7 @@ class FriendGroupController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $groupData    = ['user_id' => $request->route('uid'), 'name' => $data['groupName']];
+        $groupData    = ['user_id' => $request->route('uid'), 'name' => $data['groupName'], 'img' => $data['img']];
         $group   = new Group($groupData);
         $group->save();
         $masterId = $request->route('uid');
@@ -47,6 +47,13 @@ class FriendGroupController extends Controller
             return msg(3 , __LINE__);
         }
         $group = Group::query()->where('user_id', $request->route('uid'))->get()->toArray();
+        return msg(0, $group);
+    }
+    public function getOneGroup(Request $request){
+        if (!$request->route('groupId')) {
+            return msg(3 , __LINE__);
+        }
+        $group = GroupRelation::query()->where('group_id', $request->route('groupId'))->get()->toArray();
         return msg(0, $group);
     }
     //添加群成员
@@ -104,6 +111,7 @@ class FriendGroupController extends Controller
             $mod = [
                 "friends"    => ["array"],
                 "groupName"  => ["string"],
+                "img"     => ["string"],
             ];
         } else {
             $mod = [
