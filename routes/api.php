@@ -24,10 +24,10 @@ Route::namespace('Api')->group(function (){
     Route::post('/manager/login',[MangagerController::class, 'check']);
     Route::post('/login',[UserController::class, 'login']);
     //征友贴
-    Route::post('/post/add',[PostController::class, 'publish']);
-    Route::delete('/post/{id}',[PostController::class, 'delete']);
-    Route::put('/post/{id}',[PostController::class, 'update']);
-    Route::get('/post/list/{page}',[PostController::class, 'getList']);
+    Route::post('/posts/add',[PostController::class, 'publish']);
+    Route::delete('/posts/{id}',[PostController::class, 'delete']);
+    Route::put('/posts/{id}',[PostController::class, 'update']);
+    Route::get('/posts/list/{page}',[PostController::class, 'getList']);
     //图片上传
     Route::post('/image', [ImageController::class, 'upload']);
     //添加好友、删除好友
