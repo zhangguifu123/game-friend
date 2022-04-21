@@ -20,6 +20,7 @@ class CreateGamesTable extends Migration
             $table->string('sign_up_time')->comment('报名时间');
             $table->string('game_time')->comment('比赛时间');
             $table->string('organizer')->comment('主办单位');
+            $table->string('content')->comment('详细内容');
             $table->string('subject')->comment('竞赛科目');
             $table->string('level')->comment('竞赛级别');
             $table->integer("collections")->default(0)->comment("被收藏次数");

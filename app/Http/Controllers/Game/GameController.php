@@ -98,6 +98,7 @@ class GameController extends Controller
             "publisher"      => ["string"],
             "name"           => ["string", "max:50"],
             "sign_up_time"   => ["string"],
+            "content"        => ["string"],
             "game_time"      => ["string", "nullable"],
             "organizer"      => ["string"],
             "subject"        => ["string", "nullable"],
