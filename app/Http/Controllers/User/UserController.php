@@ -12,6 +12,10 @@ use GuzzleHttp;
 class UserController extends Controller
 {
     public function register(Request $request = null){
+        //通过路由获取前端数据，并判断数据格式
+        if (!$request->input('js_code')){
+            return msg(11, __LINE__);
+        }
         $http = new GuzzleHttp\Client;
         $response = $http->get('https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
 ', [
@@ -19,7 +23,7 @@ class UserController extends Controller
                 'appid'      => 'wx434e0e175cbdd8a5',
                 'secret'     => 'dc5793927faff4b09e60255fc206ea79-id',
                 'grant_type' => 'authorization_code',
-                'js_code'    => $request['js_code'],
+                'js_code'    => $request->input('js_code'),
             ],
         ]);
         $res    = json_decode( $response->getBody(), true);
