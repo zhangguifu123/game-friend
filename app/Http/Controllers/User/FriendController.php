@@ -19,12 +19,20 @@ class FriendController extends Controller
         if (!$firstFriend) {
             $firstFriend = [];
         }
+        $friendIds = [];
+        foreach ($firstFriend as $value) {
+            $id  = array_values($value);
+            $friendIds[] = $id[0];
+        }
         $lastFriend  = Friend::query()->where('friend_id', $request->route('uid'))->get('user_id')->toArray();
         if (!$lastFriend) {
             $lastFriend = [];
         }
-        print_r($lastFriend);
-        print_r($firstFriend);
+        foreach ($lastFriend as $value) {
+            $id  = array_values($value);
+            $friendIds[] = $id[0];
+        }
+        print_r($friendIds);
         die();
         $friends = User::query()->whereIn('id', $friendIds)->get(['id','name','img'])->toArray();
         return msg(0, $friends);
@@ -63,6 +71,20 @@ class FriendController extends Controller
         $data = $this->_dataHandle($request);
         if (!is_array($data)) {
             return $data;
+        }
+        $firstFriend = Friend::query()->where([
+            ['user_id',$request->route('uid')],
+            ['friend_id' => $data['friend']]
+        ])->first();
+        if ($firstFriend) {
+            return msg(8, __LINE__);
+        }
+        $lastFriend  = Friend::query()->where([
+            ['friend_id',$request->route('uid')],
+            ['user_id' => $data['friend']]
+        ])->first();
+        if ($lastFriend) {
+            return msg(8, __LINE__);
         }
         $friendRelation = new Friend(['user_id' => $request->route('uid'), 'friend_id' => $data['friend']]);
         $friendRelation->save();
