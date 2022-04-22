@@ -64,6 +64,8 @@ class FriendGroupController extends Controller
             $id  = array_values($value);
             $friendIds[] = $id[0];
         }
+        $group   = Group::query()->find($request->route('groupId'));
+        $friendIds += ["$group->user_id"];
         $friends = User::query()->whereIn('openid', $friendIds)->get()->toArray();
         return msg(0, $friends);
     }

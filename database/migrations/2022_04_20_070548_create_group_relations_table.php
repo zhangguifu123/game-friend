@@ -16,6 +16,7 @@ class CreateGroupRelationsTable extends Migration
         Schema::create('group_relations', function (Blueprint $table) {
             $table->id();
             $table->string('user_id')->comment('用户id');
+            $table->string('master_id')->comment('群主id');
             $table->string('group_id')->comment('小组')->index();
             $table->timestamps();
         });
