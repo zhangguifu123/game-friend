@@ -21,6 +21,7 @@ class User extends Authenticatable
         'openid',
         'name',
         'avatar',
+        'phone',
     ];
 
     /**

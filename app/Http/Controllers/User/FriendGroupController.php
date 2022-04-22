@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User\Group;
 use App\Models\User\GroupRelation;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -30,7 +30,18 @@ class FriendGroupController extends Controller
         return msg(0, $group);
     }
 
-    public function getJoinList(Request $request){
+
+    public function getMeList(Request $request){
+        if (!$request->route('uid')) {
+            return msg(3 , __LINE__);
+        }
+        $myGroup   = Group::query()->where('user_id', $request->route('uid'))->get()->toArray();
+        $joinGroup = $this->getJoinList($request);
+        $group = array_merge($myGroup, $joinGroup);
+        return msg(0, $group);
+    }
+
+    private function getJoinList(Request $request){
         if (!$request->route('uid')) {
             return msg(3 , __LINE__);
         }
@@ -40,21 +51,21 @@ class FriendGroupController extends Controller
             $groupIds[] = $value['group_id'];
         }
         $group = Group::query()->whereIn('id', $groupIds)->get()->toArray();
-        return msg(0, $group);
+        return $group;
     }
-    public function getMeList(Request $request){
-        if (!$request->route('uid')) {
-            return msg(3 , __LINE__);
-        }
-        $group = Group::query()->where('user_id', $request->route('uid'))->get()->toArray();
-        return msg(0, $group);
-    }
+
     public function getOneGroup(Request $request){
         if (!$request->route('groupId')) {
             return msg(3 , __LINE__);
         }
-        $group = GroupRelation::query()->where('group_id', $request->route('groupId'))->get()->toArray();
-        return msg(0, $group);
+        $group = GroupRelation::query()->where('group_id', $request->route('groupId'))->get('user_id')->toArray();
+        $friendIds = [];
+        foreach ($group as $value) {
+            $id  = array_values($value);
+            $friendIds[] = $id[0];
+        }
+        $friends = User::query()->whereIn('openid', $friendIds)->get()->toArray();
+        return msg(0, $friends);
     }
     //添加群成员
     public function add(Request $request){

@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('openid')->unique();
             $table->string('name');
             $table->string('avatar');
+            $table->string('phone');
             $table->rememberToken();
             $table->timestamps();
         });
