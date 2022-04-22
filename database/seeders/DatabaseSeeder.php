@@ -28,23 +28,6 @@ class DatabaseSeeder extends Seeder
                 ]
             ]);
 
-        DB::table('users')->insert(
-            [
-                [
-                    'openid' => '1',
-                    'name'   => '张桂福',
-                    'avatar' => '1',
-                ],
-                [
-                    'openid' => '2',
-                    'name'   => '谢正华',
-                    'avatar' => '1',
-                ],
-                [
-                    'openid' => '3',
-                    'name'   => '张三',
-                    'avatar' => '1',
-                ]
-            ]);
+
     }
 }
