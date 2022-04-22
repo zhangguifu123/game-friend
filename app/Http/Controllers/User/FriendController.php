@@ -79,7 +79,7 @@ class FriendController extends Controller
         }
         $lastFriend  = Friend::query()->where([
             ['friend_id',$request->route('uid')],
-            ['user_id' => $data['friend']]
+            ['user_id', $data['friend']]
         ])->first();
         if ($lastFriend) {
             return msg(8, __LINE__);
