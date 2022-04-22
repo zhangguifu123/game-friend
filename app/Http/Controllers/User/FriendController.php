@@ -72,7 +72,7 @@ class FriendController extends Controller
         }
         $firstFriend = Friend::query()->where([
             ['user_id',$request->route('uid')],
-            ['friend_id' => $data['friend']]
+            ['friend_id', $data['friend']]
         ])->first();
         if ($firstFriend) {
             return msg(8, __LINE__);
