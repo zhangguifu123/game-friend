@@ -9,6 +9,8 @@ use App\Http\Controllers\User\FriendGroupController;
 use App\Http\Controllers\User\FriendController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\PostController;
+use App\Http\Controllers\Game\CommentController;
+use App\Http\Controllers\Game\ReplyController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,7 +26,12 @@ Route::namespace('Api')->group(function (){
     Route::post('/manager/login',[MangagerController::class, 'check']);
     Route::post('/login',[UserController::class, 'login']);
     //征友贴评论区
-
+    Route::post('/posts/{id}/comment',[CommentController::class, 'publish']);
+    Route::delete('/posts/comment/{id}',[CommentController::class, 'delete']);
+    Route::get('/posts/{id}/comment',[CommentController::class, 'getList']);
+    Route::post('/posts/comment/{id}/reply',[ReplyController::class, 'publish']);
+    Route::delete('/posts/comment/{id}/reply',[ReplyController::class, 'delete']);
+    Route::get('/posts/comment/{id}/reply',[ReplyController::class, 'getList']);
     //征友贴
     Route::post('/posts/add',[PostController::class, 'publish']);
     Route::delete('/posts/{id}',[PostController::class, 'delete']);

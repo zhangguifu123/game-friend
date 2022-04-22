@@ -29,7 +29,7 @@ class CommentController extends Controller
         return msg(4, __LINE__);
     }
 
-    //获取美文评论
+    //获取征友贴评论
     public function getList(Request $request){
         $all_list = [];
         $comment_list = Comment::query()->
