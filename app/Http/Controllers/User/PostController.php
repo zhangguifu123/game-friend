@@ -92,6 +92,7 @@ class PostController extends Controller
         $mod = [
             "img"          => ["string"],
             "publisher"    => ["string"],
+            "theme"        => ["string"],
             "name"         => ["string", "max:50"],
             "title"        => ["string", "max:50"],
             "content"      => ["string"],
