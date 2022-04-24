@@ -68,18 +68,12 @@ class PostController extends Controller
     /** 删除 */
     public function delete(Request $request)
     {
-        $files = [];
         $post = Post::query()->find($request->route('id'));
 
         $imgs = Post::query()->find($request->route('id'))->img;
-        foreach ($imgs as $file){           //遍历结果去掉前缀
-            $replace = str_replace(config("app.url")."/storage/image/","",$file);
-            $files[] = $replace;
-        }
+        $file = str_replace(config("app.url")."/storage/image/","",$imgs);
         $disk = Storage::disk('img');
-        foreach ($files as $file){   //遍历删除
-            $disk->delete($file);
-        }
+        $disk->delete($file);
         $post->delete();
 
         return msg(0, __LINE__);
