@@ -12,9 +12,9 @@ class FriendController extends Controller
 {
     public function search(Request $request) {
         if (!$request->input('phone')) {
-            return msg(3, __LINE__);
+            return msg(1, __LINE__);
         }
-        $friendIds = Friend::query()->where('phone', '%' . $request->input('phone') . '%')->get('user_id')->toArray();
+        $friendIds = Friend::query()->where('phone', 'like', '%' . $request->input('phone') . '%')->get('user_id')->toArray();
         $friends   = User::query()->whereIn('openid', $friendIds)->get(['openid','name','avatar','phone'])->toArray();
         return msg(0, $friends);
     }
