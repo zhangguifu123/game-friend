@@ -54,7 +54,7 @@ class PostController extends Controller
     public function addView(Request $request){
         $post = Post::query()->leftJoin('users','posts.publisher','=','users.openid')
             ->get([
-                "id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "view", "created_at"
+                "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "view", "created_at"
             ])->find($request->route('id'));
         if (
             !session()->has("mark" . $request->route('id'))
