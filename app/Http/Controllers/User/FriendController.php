@@ -106,7 +106,13 @@ class FriendController extends Controller
             ['user_id', $request->route('uid')],
         ])->first();
         if (!$friendRelation) {
-            return msg(11, __LINE__);
+            $friendRelation = Friend::query()->where([
+                ['user_id', $data['friend']],
+                ['friend_id', $request->route('uid')],
+            ])->first();
+            if (!$friendRelation) {
+                return msg(11, __LINE__);
+            }
         }
         $friendRelation->delete();
         return msg(0, __LINE__);
