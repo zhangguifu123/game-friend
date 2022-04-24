@@ -15,10 +15,10 @@ class FriendController extends Controller
         if (!$request->route('uid')) {
             return msg(3 , __LINE__);
         }
-        $firstFriend = Friend::query()->where(
+        $firstFriend = Friend::query()->where([
             ['user_id', $request->route('uid')],
             ['status' , 0]
-        )->get('friend_id')->toArray();
+        ])->get('friend_id')->toArray();
         if (!$firstFriend) {
             $firstFriend = [];
         }
@@ -27,10 +27,10 @@ class FriendController extends Controller
             $id  = array_values($value);
             $friendIds[] = $id[0];
         }
-        $lastFriend  = Friend::query()->where(
+        $lastFriend  = Friend::query()->where([
             ['friend_id', $request->route('uid')],
             ['status' , 0]
-        )->get('user_id')->toArray();
+        ])->get('user_id')->toArray();
         if (!$lastFriend) {
             $lastFriend = [];
         }
