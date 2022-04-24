@@ -39,7 +39,7 @@ class PostController extends Controller
             ->offset($offset)->orderByDesc("posts.created_at")
             ->leftJoin('users','posts.publisher','=','users.openid')
             ->get([
-                "id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "view", "created_at"
+                "id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "created_at"
             ])
             ->toArray();
         $message['postList'] = $postList;
@@ -54,7 +54,7 @@ class PostController extends Controller
     public function addView(Request $request){
         $post = Post::query()->leftJoin('users','posts.publisher','=','users.openid')
             ->get([
-                "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "view", "created_at"
+                "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "created_at"
             ])->find($request->route('id'));
         if (
             !session()->has("mark" . $request->route('id'))
