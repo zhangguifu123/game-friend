@@ -46,7 +46,7 @@ class FriendController extends Controller
             return msg(3 , __LINE__);
         }
         $Notices = Friend::query()->where('friend_id', $request->route('uid'))->where('status', 0)->get('user_id')->toArray();
-        $friends = User::query()->whereIn('openid', $Notices)->get(['id','name','avatar'])->toArray();
+        $friends = User::query()->whereIn('openid', $Notices)->get(['openid','name','avatar'])->toArray();
         return msg(0, $friends);
     }
     //确认申请
