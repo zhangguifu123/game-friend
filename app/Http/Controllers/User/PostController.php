@@ -52,7 +52,10 @@ class PostController extends Controller
     }
     //判断近期是否浏览过该文章，若没有浏览量+1 and 建立近期已浏览session
     public function addView(Request $request){
-        $post = Post::query()->find($request->route('id'));
+        $post = Post::query()->leftJoin('users','posts.publisher','=','users.openid')
+            ->get([
+                "id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "view", "created_at"
+            ])->find($request->route('id'));
         if (
             !session()->has("mark" . $request->route('id'))
             || session("mark" . $request->route('id')) + 1800 < time()
