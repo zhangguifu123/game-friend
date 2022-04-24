@@ -44,6 +44,7 @@ Route::namespace('Api')->group(function (){
     Route::post('/friend/add/{uid}', [FriendController::class, 'add']);
     Route::delete('/friend/del/{uid}', [FriendController::class, 'delete']);
     Route::get('/friend/me/{uid}', [FriendController::class, 'getMeList']);
+    Route::get('/friend/search', [FriendController::class, 'search']);
     Route::get('/friend/notice/{uid}', [FriendController::class, 'getNotice']);
     Route::put('/friend/{uid}', [FriendController::class, 'updateStatus']);
     //群聊
