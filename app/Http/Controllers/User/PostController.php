@@ -39,7 +39,7 @@ class PostController extends Controller
             ->offset($offset)->orderByDesc("posts.created_at")
             ->leftJoin('users','posts.publisher','=','users.openid')
             ->get([
-                "id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at"
+                "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at"
             ])
             ->toArray();
         $message['postList'] = $postList;
