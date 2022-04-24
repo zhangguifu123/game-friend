@@ -17,7 +17,7 @@ class FriendController extends Controller
         }
         $firstFriend = Friend::query()->where([
             ['user_id', $request->route('uid')],
-            ['status' , 0]
+            ['status' , 1]
         ])->get('friend_id')->toArray();
         if (!$firstFriend) {
             $firstFriend = [];
@@ -29,7 +29,7 @@ class FriendController extends Controller
         }
         $lastFriend  = Friend::query()->where([
             ['friend_id', $request->route('uid')],
-            ['status' , 0]
+            ['status' , 1]
         ])->get('user_id')->toArray();
         if (!$lastFriend) {
             $lastFriend = [];
