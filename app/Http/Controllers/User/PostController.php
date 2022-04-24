@@ -37,8 +37,9 @@ class PostController extends Controller
         $postList = $post
             ->limit(10)
             ->offset($offset)->orderByDesc("posts.created_at")
+            ->leftJoin('users','posts.publisher','=','users.openid')
             ->get([
-                "id", "publisher",  "name", "level", "title" ,"content","img","created_at"
+                "id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "view", "created_at"
             ])
             ->toArray();
         $message['postList'] = $postList;
@@ -48,6 +49,18 @@ class PostController extends Controller
             return msg(13,$message);
         }
         return msg(0, $message);
+    }
+    //判断近期是否浏览过该文章，若没有浏览量+1 and 建立近期已浏览session
+    public function addView(Request $request){
+        $post = Post::query()->find($request->route('id'));
+        if (
+            !session()->has("mark" . $request->route('id'))
+            || session("mark" . $request->route('id')) + 1800 < time()
+        ) {
+            $post->increment("views");
+            session(["mark" . $request->route('id') => time()]);
+        }
+        return msg(0,$post);
     }
     /** 删除 */
     public function delete(Request $request)

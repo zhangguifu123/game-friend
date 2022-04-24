@@ -36,6 +36,7 @@ Route::namespace('Api')->group(function (){
     Route::post('/posts/add',[PostController::class, 'publish']);
     Route::delete('/posts/{id}',[PostController::class, 'delete']);
     Route::put('/posts/{id}',[PostController::class, 'update']);
+    Route::get('/posts/{id}',[PostController::class, 'addView']);
     Route::get('/posts/list/{page}',[PostController::class, 'getList']);
     //图片上传
     Route::post('/image', [ImageController::class, 'upload']);
