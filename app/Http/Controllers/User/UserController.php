@@ -44,7 +44,7 @@ class UserController extends Controller
         return msg(0, $result);
     }
     public function check(Request $request){
-        if ($request->input('openid')) {
+        if (!$request->input('openid')) {
             return msg(1, __LINE__);
         }
         $openid = $request->input('openid');
