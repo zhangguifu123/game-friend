@@ -25,6 +25,8 @@ use App\Http\Controllers\Game\ReplyController;
 Route::namespace('Api')->group(function (){
     Route::post('/manager/login',[MangagerController::class, 'check']);
     Route::post('/login',[UserController::class, 'login']);
+    Route::post('/check',[UserController::class, 'check']);
+    Route::post('/authenticate',[UserController::class, 'authenticate']);
     //征友贴评论区
     Route::post('/posts/{id}/comment',[CommentController::class, 'publish']);
     Route::delete('/posts/comment/{id}',[CommentController::class, 'delete']);
