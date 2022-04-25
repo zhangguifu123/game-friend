@@ -21,7 +21,7 @@ class ReplyController extends Controller
         if(!$comment) {
             return response(msg(3, "评论不存在" . __LINE__));
         }
-        $data = $data + ["status" => 0,"comment_id"=>$request->route("commentId")];
+        $data = $data + ["status" => 0,"comment_id"=>$request->route("id")];
         $reply = new Reply($data);
 
         if ($reply->save()) {
