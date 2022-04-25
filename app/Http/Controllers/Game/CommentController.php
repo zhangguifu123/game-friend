@@ -18,7 +18,7 @@ class CommentController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $postId = $request->route('postId');
+        $postId = $request->route('id');
         $data = $data + ["post_id"=>$postId,"status" => 0];
         $comments = new Comment($data);
 
@@ -33,7 +33,7 @@ class CommentController extends Controller
     public function getList(Request $request){
         $all_list = [];
         $comment_list = Comment::query()->
-        where('post_id','=',$request->route('postId'))
+        where('post_id','=',$request->route('id'))
             ->leftJoin('users','comments.fromId','=','users.id')
             ->get([
                 'comments.id','toId','fromId','users.name as fromName','users.avatar as fromAvatar','content','comments.created_at as time'
@@ -98,7 +98,7 @@ class CommentController extends Controller
     }
 
     //检查函数
-    private function data_handle(Request $request = null){
+    private function data_handle(Request $request){
         //声明理想数据格式
         $mod = [
             "fromId" => ["string"],
@@ -118,7 +118,7 @@ class CommentController extends Controller
             return msg(3, '数据格式错误' . __LINE__);
         };
         //查找征友贴发布者id
-        $toId = Post::query()->find($request->route('postId'))->publisher;
+        $toId = Post::query()->find($request->route('id'))->publisher;
         $data = $data + ["toId"=>$toId];
         return $data;
     }
