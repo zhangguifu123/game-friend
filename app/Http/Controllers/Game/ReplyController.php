@@ -82,10 +82,8 @@ class ReplyController extends Controller
     private function data_handle(Request $request = null){
         //声明理想数据格式
         $mod = [
-            "toId" => ["integer"],
-            "fromId" => ["integer"],
-            "fromName" => ["string", "max:20"],
-            "fromAvatar" => ["string"],
+            "toId" => ["string"],
+            "fromId" => ["string"],
             "content" => ["string", "max:50"]
         ];
         //是否缺失参数

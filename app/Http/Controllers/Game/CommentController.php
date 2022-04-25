@@ -102,8 +102,6 @@ class CommentController extends Controller
         //声明理想数据格式
         $mod = [
             "fromId" => ["string"],
-            "fromName" => ["string"],
-            "fromAvatar" => ["string"],
             "content" => ["string", "max:50"]
         ];
         //是否缺失参数

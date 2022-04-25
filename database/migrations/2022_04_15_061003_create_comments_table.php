@@ -19,8 +19,6 @@ class CreateCommentsTable extends Migration
             $table->string('toId')->index()->comment('文章作者id');
             $table->string('fromId')->index()->comment('评论者id');
             $table->boolean("status")->comment("0未查看 1已查看")->default(0);
-            $table->string('fromName')->comment('评论者昵称');
-            $table->string('fromAvatar')->comment('评论者头像');
             $table->string("content")->comment("留言内容");
             $table->timestamps();
         });
