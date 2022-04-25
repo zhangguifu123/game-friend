@@ -101,7 +101,7 @@ class CommentController extends Controller
     private function data_handle(Request $request = null){
         //声明理想数据格式
         $mod = [
-            "fromId" => ["integer"],
+            "fromId" => ["string"],
             "fromName" => ["string"],
             "fromAvatar" => ["string"],
             "content" => ["string", "max:50"]
