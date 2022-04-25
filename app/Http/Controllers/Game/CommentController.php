@@ -112,13 +112,7 @@ class CommentController extends Controller
         }
         //提取数据
         $data = $request->only(array_keys($mod));
-        //判断是否存在昵称，没有获取真实姓名并加入
-        if ($data["fromName"] === ""||empty($data["fromName"])){
-            if ($request->routeIs("Comment_update")) {
-                $uid = Comment::query()->find($request->route('id'))->fromId;
-            }
-            $data["name"] = User::query()->find($uid)->name;
-        }
+
         //判断数据格式
         if (Validator::make($data, $mod)->fails()) {
             return msg(3, '数据格式错误' . __LINE__);
