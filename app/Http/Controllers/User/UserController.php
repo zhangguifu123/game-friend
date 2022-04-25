@@ -50,7 +50,6 @@ class UserController extends Controller
             "name"    => ["string"],
             "js_code"  => ["string"],
             "avatar"  => ["string"],
-            "phone"  => ["string"],
         ];
         //是否缺失参数
         if (!$request->has(array_keys($mod))){

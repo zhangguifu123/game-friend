@@ -17,7 +17,7 @@ class ReplyController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $comment = Comment::query()->find($request->route('commentId'));
+        $comment = Comment::query()->find($request->route('id'));
         if(!$comment) {
             return response(msg(3, "评论不存在" . __LINE__));
         }
