@@ -31,8 +31,8 @@ class UserController extends Controller
         if(!key_exists('openid',$res)){
             return msg(4, $res);
         }
-        $data['openid']      = $res['openid'];
-
+        $data['openid'] = $res['openid'];
+        $data['phone']  = '0';
         $check = DB::table('users')->where('openid', $res['openid'])->first();
         if (!$check){
             $User   = new User($data);
@@ -43,8 +43,38 @@ class UserController extends Controller
         }
         return msg(0, $result);
     }
+    public function check(Request $request){
+        if ($request->input('openid')) {
+            return msg(1, __LINE__);
+        }
+        $openid = $request->input('openid');
+        $check  = User::query()->where(
+            ['openid', $openid]
+        )->first();
+        if ($check->phone == '0'){
+            return msg(13, __LINE__);
+        };
+        return msg(0, __LINE__);
+
+    }
+    public function authenticate(Request $request){
+        if ($request->input('openid') || $request->input('phone')) {
+            return msg(1, __LINE__);
+        }
+        $phone  = $request->input('phone');
+        $openid = $request->input('openid');
+        $check  = User::query()->where(
+            ['openid', $openid]
+        )->first();
+        if (!$check){
+            return msg(11, __LINE__);
+        };
+        $check->phone = $phone;
+        return msg(0, __LINE__);
+
+    }
     //检查函数
-    private function _dataHandle(Request $request = null){
+    private function _dataHandle(Request $request){
         //声明理想数据格式
         $mod = [
             "name"    => ["string"],
