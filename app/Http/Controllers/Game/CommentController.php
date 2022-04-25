@@ -103,7 +103,7 @@ class CommentController extends Controller
         $mod = [
             "fromId" => ["integer"],
             "fromName" => ["string"],
-            "fromAvatar" => ["json"],
+            "fromAvatar" => ["string"],
             "content" => ["string", "max:50"]
         ];
         //是否缺失参数
