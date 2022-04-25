@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
                     'level'   => 0,
                     'api_token' => Str::random(60),
                 ]
-            ]);
+        ]);
 
 
     }
