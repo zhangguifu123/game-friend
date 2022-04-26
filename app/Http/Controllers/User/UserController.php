@@ -60,7 +60,7 @@ class UserController extends Controller
 
     }
     public function authenticate(Request $request){
-        if ($request->input('openid') || $request->input('phone')) {
+        if (!$request->input('openid') || !$request->input('phone')) {
             return msg(1, __LINE__);
         }
         $phone  = $request->input('phone');
