@@ -72,6 +72,7 @@ class UserController extends Controller
             return msg(11, __LINE__);
         };
         $check->phone = $phone;
+        $check->save();
         return msg(0, __LINE__);
 
     }
