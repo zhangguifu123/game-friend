@@ -37,11 +37,13 @@ class UserController extends Controller
         if (!$check){
             $User   = new User($data);
             $User->save();
-            $result = $User->info();
+            return msg(13, $User);
         }else{
-            $result = $check;
+            if ($check->phone == '0'){
+                return msg(13, $check);
+            }
+            return msg(0, $check);
         }
-        return msg(0, $result);
     }
     public function check(Request $request){
         if (!$request->input('openid')) {
