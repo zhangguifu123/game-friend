@@ -75,7 +75,7 @@ class ReplyController extends Controller
         $reply = Reply::query()->find($request->route('id'));
         // 将该评测从我的发布中删除
         if (!$reply){
-            return msg(3, __LINE__);
+            return msg(11, __LINE__);
         }
         $reply->delete();
         return msg(0, __LINE__);
