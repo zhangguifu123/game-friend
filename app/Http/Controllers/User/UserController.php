@@ -66,7 +66,7 @@ class UserController extends Controller
         $phone  = $request->input('phone');
         $openid = $request->input('openid');
         $check  = User::query()->where(
-            ['openid', $openid]
+            'openid', $openid
         )->first();
         if (!$check){
             return msg(11, __LINE__);
