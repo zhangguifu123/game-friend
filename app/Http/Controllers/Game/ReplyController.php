@@ -34,7 +34,7 @@ class ReplyController extends Controller
     public function getList(Request $request){
         $reply_list = Reply::query()
             ->where('replies.comment_id','=',$request->route('id'))
-            ->leftJoin('users','replies.fromId','=','users.id')
+            ->leftJoin('users','replies.fromId','=','users.openid')
             ->get([
                 'replies.id','replies.fromId','users.name as fromName','replies.toId','replies.comment_id','users.avatar as fromAvatar','replies.content','replies.created_at as time'
             ])->toArray();
@@ -56,7 +56,7 @@ class ReplyController extends Controller
                 ['replies.fromId', $uid]
             ])
             ->whereIn('replies.handleStatus', [0,1])
-            ->leftJoin('users','replies.fromId','=','users.id');
+            ->leftJoin('users','replies.fromId','=','users.openid');
         $list = $reply
             ->limit(13)
             ->offset($offset)

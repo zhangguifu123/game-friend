@@ -34,14 +34,14 @@ class CommentController extends Controller
         $all_list = [];
         $comment_list = Comment::query()->
         where('post_id','=',$request->route('id'))
-            ->leftJoin('users','comments.fromId','=','users.id')
+            ->leftJoin('users','comments.fromId','=','users.openid')
             ->get([
                 'comments.id','toId','fromId','users.name as fromName','users.avatar as fromAvatar','content','comments.created_at as time'
             ])->toArray();
         foreach ($comment_list as $i){
             $reply_list = Reply::query()
                 ->where('comment_id','=',$i['id'])
-                ->leftJoin('users','replies.fromId','=','users.id')
+                ->leftJoin('users','replies.fromId','=','users.openid')
                 ->get([
                     'replies.id','fromId','users.name as fromName','toId','comment_id','users.avatar as fromAvatar','content','replies.created_at as time'
                 ])->toArray();
@@ -64,7 +64,7 @@ class CommentController extends Controller
             ->where([
                 ['comments.fromId', $uid],
             ])
-            ->leftJoin('users', 'comments.fromId', '=', 'users.id')
+            ->leftJoin('users', 'comments.fromId', '=', 'users.openid')
             ->whereIn('comments.handleStatus', [0, 1]);
         $listSum = $comment->count();
         $list = $comment
