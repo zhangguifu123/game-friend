@@ -11,6 +11,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\Game\CommentController;
 use App\Http\Controllers\Game\ReplyController;
+use App\Http\Controllers\TipController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -58,10 +59,10 @@ Route::namespace('Api')->group(function (){
     Route::delete('/group/del/{uid}', [FriendGroupController::class, 'deleteGroup']);
     Route::delete('/group/person/del/{uid}', [FriendGroupController::class, 'delete']);
     //反馈Tip
-    Route::get('/tip/list/{page}',[GameController::class, 'getList']);
-    Route::post('/tip/add',[GameController::class, 'publish']);
-    Route::delete('/tip/{id}',[GameController::class, 'delete']);
-    Route::put('/tip/{id}',[GameController::class, 'update']);
+    Route::get('/tip/list/{page}',[TipController::class, 'getList']);
+    Route::post('/tip/add',[TipController::class, 'publish']);
+    Route::delete('/tip/{id}',[TipController::class, 'delete']);
+    Route::put('/tip/{id}',[TipController::class, 'update']);
     /**Game */
     Route::get('/game/list/{page}',[GameController::class, 'getList']);
     Route::group(['middleware' => 'manager.check'], function () {
