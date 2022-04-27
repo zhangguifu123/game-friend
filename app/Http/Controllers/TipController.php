@@ -15,6 +15,7 @@ class TipController extends Controller
             return $data;
         }
         $tip = new Tip($data);
+        $data['status'] = 0;
         if ($tip->save()) {
             return msg(0,$tip->id);
         }
@@ -83,7 +84,7 @@ class TipController extends Controller
         //声明理想数据格式
         $mod = [
             "img"           => ["json"],
-            "reporter"      => ["string", "max:20"],
+            "user_name"      => ["string", "max:20"],
             "user_id"       => ["string"],
             "title"         => ["string", "max:20"],
             "content"       => ["string", "nullable"],
