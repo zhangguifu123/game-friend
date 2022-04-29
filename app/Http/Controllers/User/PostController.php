@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\GameCollection;
+use App\Models\PostCollection;
 use App\Models\User\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -29,6 +31,10 @@ class PostController extends Controller
     /** 拉取列表信息 */
     public function getList(Request $request)
     {
+        if (!$request->route('uid')){
+            return msg(11, __LINE__);
+        }
+        $uid = $request->route('uid');
         //分页，每页10条
         $limit = 10;
         $offset = $request->route("page") * $limit - $limit;
@@ -45,10 +51,28 @@ class PostController extends Controller
         $message['postList'] = $postList;
         $message['total']    = $postSum;
         $message['limit']    = $limit;
+        $postList = $this->_isCollection($uid, $postList);
         if (isset($message['token'])){
             return msg(13,$message);
         }
         return msg(0, $message);
+    }
+    private function _isCollection($uid, $postList){
+        $postCollection = PostCollection::query()->where('uid', $uid)->get()->toArray();
+        $collectionArray  = [];
+        foreach ($postCollection as $value){
+            $collectionArray[] = $value['post_id'];
+        }
+        $newPostList = [];
+        foreach ($postList as $post){
+            if (array_search($post['id'], $collectionArray)) {
+                $post += ['isCollection' => 1];
+            } else {
+                $post += ['isCollection' => 0];
+            };
+            $newPostList[] = $post;
+        }
+        return $newPostList;
     }
     //判断近期是否浏览过该文章，若没有浏览量+1 and 建立近期已浏览session
     public function addView(Request $request){

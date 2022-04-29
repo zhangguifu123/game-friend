@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Game;
 
 use App\Http\Controllers\Controller;
+use App\Models\GameCollection;
 use App\Models\Manager\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -29,6 +30,10 @@ class GameController extends Controller
     /** 拉取列表信息 */
     public function getList(Request $request)
     {
+        if (!$request->route('uid')){
+            return msg(11, __LINE__);
+        }
+        $uid = $request->route('uid');
         //分页，每页10条
         $limit = 10;
         $offset = $request->route("page") * $limit - $limit;
@@ -42,7 +47,8 @@ class GameController extends Controller
                 "game_time", "organizer", "collections", "img", "created_at"
             ])
             ->toArray();
-	$message['gameList'] = $gameList;
+        $gameList = $this->_isCollection($uid, $gameList);
+	    $message['gameList'] = $gameList;
         $message['total']    = $gameSum;
         $message['limit']    = $limit;
         if (isset($message['token'])){
@@ -51,6 +57,23 @@ class GameController extends Controller
         return msg(0, $message);
     }
 
+    private function _isCollection($uid, $gameList){
+        $gameCollection = GameCollection::query()->where('uid', $uid)->get()->toArray();
+        $collectionArray  = [];
+        foreach ($gameCollection as $value){
+            $collectionArray[] = $value['game_id'];
+        }
+        $newGameList = [];
+        foreach ($gameList as $game){
+            if (array_search($game['id'], $collectionArray)) {
+                $game += ['isCollection' => 1];
+            } else {
+                $game += ['isCollection' => 0];
+            };
+            $newGameList[] = $game;
+        }
+        return $newGameList;
+    }
     /** 删除 */
     public function delete(Request $request)
     {
