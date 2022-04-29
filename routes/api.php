@@ -13,6 +13,7 @@ use App\Http\Controllers\Game\CommentController;
 use App\Http\Controllers\Game\ReplyController;
 use App\Http\Controllers\TipController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\NoticeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,6 +31,11 @@ Route::namespace('Api')->group(function (){
     Route::post('/check',[UserController::class, 'check']);
     Route::post('/avatar',[AvatarController::class, 'upload']);
     Route::post('/authenticate',[UserController::class, 'authenticate']);
+    //Notice
+    Route::get('/notice/me/{id}',[NoticeController::class, 'getList']);
+    Route::post('/notice/add',[NoticeController::class, 'publish']);
+    Route::delete('/notice/{id}',[NoticeController::class, 'delete']);
+    Route::put('/notice/{id}',[NoticeController::class, 'update']);
     //收藏
     Route::get('/collection/post/{id}',[CollectionController::class, 'getPostCollectionList']);
     Route::get('/collection/game/{id}',[CollectionController::class, 'getGameCollectionList']);
