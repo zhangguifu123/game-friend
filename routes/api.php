@@ -12,6 +12,7 @@ use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\Game\CommentController;
 use App\Http\Controllers\Game\ReplyController;
 use App\Http\Controllers\TipController;
+use App\Http\Controllers\CollectionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,6 +29,13 @@ Route::namespace('Api')->group(function (){
     Route::post('/login',[UserController::class, 'login']);
     Route::post('/check',[UserController::class, 'check']);
     Route::post('/authenticate',[UserController::class, 'authenticate']);
+    //收藏
+    Route::get('/collection/post/{id}',[CollectionController::class, 'getPostCollectionList']);
+    Route::get('/collection/game/{id}',[CollectionController::class, 'getGameCollectionList']);
+    Route::post('/collection/post',[CollectionController::class, 'addPostCollection']);
+    Route::post('/collection/game',[CollectionController::class, 'addGameCollection']);
+    Route::delete('/collection/post/{id}',[CollectionController::class, 'deletePostCollection']);
+    Route::delete('/collection/game/{id}',[CollectionController::class, 'deleteGameCollection']);
     //征友贴评论区
     Route::post('/posts/{id}/comment',[CommentController::class, 'publish']);
     Route::delete('/posts/comment/{id}',[CommentController::class, 'delete']);
