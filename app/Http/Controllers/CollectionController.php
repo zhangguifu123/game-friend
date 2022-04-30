@@ -19,10 +19,12 @@ class CollectionController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $game = Game::query()->find('game_id');
+        $game = Game::query()->find($data['gameId']);
+        print_r($game);
         if (!$game){
             return msg(11, __LINE__);
         }
+        $data['game_id'] = $data['gameId'];
         $gameCollection = new GameCollection($data);
         if ($gameCollection->save()) {
             $game->increment('collection_count');
@@ -76,6 +78,7 @@ class CollectionController extends Controller
         if (!$post){
             return msg(11, __LINE__);
         }
+        $data['post_id'] = $data['postId'];
         $postCollection = new PostCollection($data);
         if ($postCollection->save()) {
             $post->increment('collection_count');
