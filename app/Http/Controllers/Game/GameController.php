@@ -44,7 +44,7 @@ class GameController extends Controller
             ->offset($offset)->orderByDesc("games.created_at")
             ->get([
                 "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
-                "game_time", "organizer", "collections", "img", "created_at"
+                "content","game_time", "organizer", "collections", "img", "created_at"
             ])
             ->toArray();
         $gameList = $this->_isCollection($uid, $gameList);
