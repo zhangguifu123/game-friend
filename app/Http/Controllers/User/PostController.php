@@ -31,10 +31,10 @@ class PostController extends Controller
     /** 拉取列表信息 */
     public function getList(Request $request)
     {
-        if (!$request->route('uid')){
+        if (!$request->input('uid')){
             return msg(11, __LINE__);
         }
-        $uid = $request->route('uid');
+        $uid = $request->input('uid');
         //分页，每页10条
         $limit = 10;
         $offset = $request->route("page") * $limit - $limit;
@@ -48,10 +48,11 @@ class PostController extends Controller
                 "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at"
             ])
             ->toArray();
+        $postList = $this->_isCollection($uid, $postList);
         $message['postList'] = $postList;
         $message['total']    = $postSum;
         $message['limit']    = $limit;
-        $postList = $this->_isCollection($uid, $postList);
+
         if (isset($message['token'])){
             return msg(13,$message);
         }
