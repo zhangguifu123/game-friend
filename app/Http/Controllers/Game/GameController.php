@@ -33,7 +33,7 @@ class GameController extends Controller
         if (!$request->route('uid')){
             return msg(11, __LINE__);
         }
-        $uid = $request->route('uid');
+        $uid = $request->input('uid');
         //分页，每页10条
         $limit = 10;
         $offset = $request->route("page") * $limit - $limit;
