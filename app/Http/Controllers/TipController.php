@@ -43,21 +43,12 @@ class TipController extends Controller
     /** 删除 */
     public function delete(Request $request)
     {
-        $files = [];
         $tip = Tip::query()->find($request->route('id'));
 
-        $imgs = Tip::query()->find($request->route('id'))->img;
-        $imgs = json_decode($imgs);
-        foreach ($imgs as $file){           //遍历结果去掉前缀
-            $replace = str_replace(config("app.url")."/storage/image/","",$file);
-            $files[] = $replace;
-        }
-        $disk = Storage::disk('img');
-        foreach ($files as $file){   //遍历删除
-            $disk->delete($file);
+        if (!$tip){
+            return msg(11,__LINE__);
         }
         $tip->delete();
-
         return msg(0, __LINE__);
     }
 
@@ -83,7 +74,6 @@ class TipController extends Controller
     private function _dataHandle(Request $request = null){
         //声明理想数据格式
         $mod = [
-            "img"           => ["json"],
             "user_name"      => ["string", "max:20"],
             "user_id"       => ["string"],
             "title"         => ["string", "max:20"],
