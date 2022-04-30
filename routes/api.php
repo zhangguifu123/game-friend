@@ -14,6 +14,7 @@ use App\Http\Controllers\Game\ReplyController;
 use App\Http\Controllers\TipController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\BannerController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
