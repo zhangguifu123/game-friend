@@ -20,14 +20,13 @@ class CollectionController extends Controller
             return $data;
         }
         $game = Game::query()->find($data['gameId']);
-        print_r($game);
         if (!$game){
             return msg(11, __LINE__);
         }
         $data['game_id'] = $data['gameId'];
         $gameCollection = new GameCollection($data);
         if ($gameCollection->save()) {
-            $game->increment('collection_count');
+            $game->increment('collections');
             return msg(0,__LINE__);
         }
         //未知错误
@@ -81,7 +80,7 @@ class CollectionController extends Controller
         $data['post_id'] = $data['postId'];
         $postCollection = new PostCollection($data);
         if ($postCollection->save()) {
-            $post->increment('collection_count');
+            $post->increment('collections');
             return msg(0,__LINE__);
         }
         //未知错误
