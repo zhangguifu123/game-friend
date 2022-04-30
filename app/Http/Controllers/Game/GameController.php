@@ -30,7 +30,7 @@ class GameController extends Controller
     /** 拉取列表信息 */
     public function getList(Request $request)
     {
-        if (!$request->route('uid')){
+        if (!$request->input('uid')){
             return msg(11, __LINE__);
         }
         $uid = $request->input('uid');
