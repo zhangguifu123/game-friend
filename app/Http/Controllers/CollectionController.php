@@ -99,9 +99,11 @@ class CollectionController extends Controller
         }
         $gameList = Post::query()->whereIn('posts.id',$postIds)
             ->leftJoin('users','posts.publisher','=','users.openid')
-            ->get([
-                "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at"
-            ])
+            ->get(
+//                [
+//                "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at", "collections"
+//            ]
+            )
             ->toArray();
         return msg(0, $gameList);
     }
