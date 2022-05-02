@@ -65,7 +65,6 @@ class PostController extends Controller
             $collectionArray[] = $value['post_id'];
         }
         $newPostList = [];
-        print_r($postList);print_r($collectionArray);
         foreach ($postList as $post){
             if (array_search($post['id'], $collectionArray)) {
                 print_r('okok');
