@@ -68,8 +68,10 @@ class PostController extends Controller
         print_r($postList);print_r($collectionArray);
         foreach ($postList as $post){
             if (array_search($post['id'], $collectionArray)) {
+                print_r('okok');
                 $post += ['isCollection' => 1];
             } else {
+                print_r('nono');
                 $post += ['isCollection' => 0];
             };
             $newPostList[] = $post;
