@@ -94,9 +94,9 @@ class CollectionController extends Controller
         }
         $uid = $request->route('id');
         $gameList   = PostCollection::query()->where('uid', $request->route('id'))
-            ->leftJoin('post_collections', function ($join) use ($uid) {
-                $join->on('posts.id', '=', 'post_collections.post_id')
-                    ->where('post_collections.uid', '=', $uid);
+            ->leftJoin('post', function ($join) use ($uid) {
+                $join->on('posts.id', '=', 'post_collections.post_id');
+//                    ->where('post_collections.uid', '=', $uid);
             })
             ->leftJoin('users','posts.publisher','=','users.openid')
             ->get([
