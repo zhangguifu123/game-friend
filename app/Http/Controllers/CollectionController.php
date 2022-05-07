@@ -27,7 +27,7 @@ class CollectionController extends Controller
         $gameCollection = new GameCollection($data);
         if ($gameCollection->save()) {
             $game->increment('collections');
-            return msg(0,__LINE__);
+            return msg(0,['collectionId' => $gameCollection->id]);
         }
         //未知错误
         return msg(4, __LINE__);
@@ -81,7 +81,7 @@ class CollectionController extends Controller
         $postCollection = new PostCollection($data);
         if ($postCollection->save()) {
             $post->increment('collections');
-            return msg(0,__LINE__);
+            return msg(0,['collectionId' => $postCollection->id]);
         }
         //未知错误
         return msg(4, __LINE__);

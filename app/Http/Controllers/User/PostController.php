@@ -62,12 +62,12 @@ class PostController extends Controller
         $postCollection = PostCollection::query()->where('uid', $uid)->get()->toArray();
         $collectionArray  = [];
         foreach ($postCollection as $value){
-            $collectionArray[] = $value['post_id'];
+            $collectionArray[$value['post_id']] = $value['id'];
         }
         $newPostList = [];
         foreach ($postList as $post){
             if (in_array($post['id'], $collectionArray)) {
-                $post += ['isCollection' => 1];
+                $post += ['isCollection' => 1, 'collectionId' => $collectionArray[$post['id']]];
             } else {
                 $post += ['isCollection' => 0];
             };
@@ -77,6 +77,10 @@ class PostController extends Controller
     }
     //判断近期是否浏览过该文章，若没有浏览量+1 and 建立近期已浏览session
     public function addView(Request $request){
+        if (!$request->input('uid')){
+            return msg(11, __LINE__);
+        }
+        $uid = $request->input('uid');
         $post = Post::query()->leftJoin('users','posts.publisher','=','users.openid')
             ->get([
                 "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at"
@@ -88,6 +92,8 @@ class PostController extends Controller
             $post->increment("views");
             session(["mark" . $request->route('id') => time()]);
         }
+        $postList = $this->_isCollection($uid, [$post]);
+        $post = $postList[0];
         return msg(0,$post);
     }
     /** 删除 */

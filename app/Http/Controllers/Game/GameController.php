@@ -61,12 +61,12 @@ class GameController extends Controller
         $gameCollection = GameCollection::query()->where('uid', $uid)->get()->toArray();
         $collectionArray  = [];
         foreach ($gameCollection as $value){
-            $collectionArray[] = $value['game_id'];
+            $collectionArray[$value['game_id']] = $value['id'];
         }
         $newGameList = [];
         foreach ($gameList as $game){
             if (in_array($game['id'], $collectionArray)) {
-                $game += ['isCollection' => 1];
+                $game += ['isCollection' => 1, 'collectionId' => $collectionArray[$game['id']]];
             } else {
                 $game += ['isCollection' => 0];
             };
