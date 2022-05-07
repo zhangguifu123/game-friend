@@ -92,8 +92,18 @@ class PostController extends Controller
             $post->increment("views");
             session(["mark" . $request->route('id') => time()]);
         }
-        $postList = $this->_isCollection($uid, [$post]);
-        $post = $postList[0];
+        $postCollection = PostCollection::query()->where('uid', $uid)->get()->toArray();
+        $collectionArray  = [];
+        foreach ($postCollection as $value){
+            $collectionArray[$value['post_id']] = $value['id'];
+        }
+        if (array_key_exists($post['id'], $collectionArray)) {
+            $post->isCollection = 1;
+            $post->collectionId = $collectionArray[$post['id']];
+        } else {
+            $post->isCollection = 0;
+        };
+
         return msg(0,$post);
     }
     /** 删除 */
