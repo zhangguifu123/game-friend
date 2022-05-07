@@ -61,7 +61,7 @@ class CollectionController extends Controller
         if (!$gameCollection){
             return msg(11, __LINE__);
         }
-        $game->decrement('collection_count');
+        $game->decrement('collections');
         $gameCollection->delete();
         return msg(0, __LINE__);
     }
@@ -120,7 +120,7 @@ class CollectionController extends Controller
         if (!$postCollection){
             return msg(11, __LINE__);
         }
-        $post->decrement('collection_count');
+        $post->decrement('collections');
         $postCollection->delete();
 
         return msg(0, __LINE__);
