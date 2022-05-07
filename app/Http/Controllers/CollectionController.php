@@ -92,15 +92,20 @@ class CollectionController extends Controller
         if (!$request->route('id')) {
             return msg(3 , __LINE__);
         }
-        $post   = PostCollection::query()->where('uid', $request->route('id'))->get()->toArray();
-        $postIds = [];
-        foreach ($post as $value){
-            $postIds[] = $value['post_id'];
-        }
-        $gameList = Post::query()->whereIn('posts.id',$postIds)
+//        $post   = PostCollection::query()->where('uid', $request->route('id'))->get()->toArray();
+//        $postIds = [];
+//        foreach ($post as $value){
+//            $postIds[] = $value['post_id'];
+//        }
+        $uid = $request->route('id');
+        $gameList = Post::query()
+            ->leftJoin('post_collections', function ($join) use ($uid) {
+                $join->on('posts.id', '=', 'post_collections.post_id')
+                    ->where('post_collections.uid', '=', $uid);
+            })
             ->leftJoin('users','posts.publisher','=','users.openid')
             ->get([
-                "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at", "collections", "phone"
+                "post_collections.id as collectionId", "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at", "collections", "phone"
             ])
             ->toArray();
         return msg(0, $gameList);
