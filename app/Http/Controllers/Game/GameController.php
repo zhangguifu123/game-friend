@@ -65,7 +65,7 @@ class GameController extends Controller
         }
         $newGameList = [];
         foreach ($gameList as $game){
-            if (in_array($game['id'], $collectionArray)) {
+            if (array_key_exists($game['id'], $collectionArray)) {
                 $game += ['isCollection' => 1, 'collectionId' => $collectionArray[$game['id']]];
             } else {
                 $game += ['isCollection' => 0];
