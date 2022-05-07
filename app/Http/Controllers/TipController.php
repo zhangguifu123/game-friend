@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Manager\Tip;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TipController extends Controller
 {
