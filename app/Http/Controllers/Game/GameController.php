@@ -36,22 +36,19 @@ class GameController extends Controller
         $level   = $request->input('level');
         $subject = $request->input('subject');
         //分页，每页10条
-        $limit = 10;
-        $offset = $request->route("page") * $limit - $limit;
-        $game = Game::query();
-        $gameSum = $game->count();
-        $gameList = $game
-            ->limit(10)
-            ->offset($offset)->orderByDesc("games.created_at");
+        $limit    = 10;
+        $offset   = $request->route("page") * $limit - $limit;
+        $game     = Game::query();
+        $gameSum  = $game->count();
+        $gameList = $game->limit(10)->offset($offset)->orderByDesc("games.created_at");
         if (!$level && !$subject) {
-            print_r(1);
-            $gameList->get([
+            $gameList = $gameList->get([
                 "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
                 "content","game_time", "organizer", "collections", "img", "created_at"
             ])->toArray();
         }
         if ($level && $subject){
-            $gameList->where([
+            $gameList = $gameList->where([
                 ['level', 'in' , $level],
                 ['subject', 'in' , $subject]
             ])->get([
@@ -60,7 +57,7 @@ class GameController extends Controller
             ])->toArray();
         }
         if (!$level && $subject){
-            $gameList->where([
+            $gameList = $gameList->where([
                 ['subject', 'in' , $subject]
             ])->get([
                 "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
@@ -68,7 +65,7 @@ class GameController extends Controller
             ])->toArray();
         }
         if ($level && !$subject){
-            $gameList->where([
+            $gameList = $gameList->where([
                 ['level', 'in' , $level]
             ])->get([
                 "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
