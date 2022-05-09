@@ -44,6 +44,7 @@ class GameController extends Controller
             ->limit(10)
             ->offset($offset)->orderByDesc("games.created_at");
         if (!$level && !$subject) {
+            print_r(1);
             $gameList->get([
                 "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
                 "content","game_time", "organizer", "collections", "img", "created_at"
