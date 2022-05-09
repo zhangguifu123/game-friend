@@ -29,6 +29,7 @@ class GameController extends Controller
     /** 拉取列表信息 */
     public function getList(Request $request)
     {
+        print_r($request->input('subject'));
         if (!$request->input('uid') || is_null($request->input('subject')) || is_null($request->input('level'))){
             return msg(11, __LINE__);
         }
@@ -57,7 +58,6 @@ class GameController extends Controller
             ])->toArray();
         }
         if (!$level && $subject){
-            print_r([1]);
             print_r($subject);
             $gameList = $gameList->where([
                 ['subject', 'in' , $subject]
