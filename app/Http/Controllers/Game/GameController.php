@@ -43,9 +43,9 @@ class GameController extends Controller
         $gameList = $game
             ->limit(10)
             ->offset($offset)->orderByDesc("games.created_at")
-            ->whereIn([
-                ['level', $level],
-                ['subject', $subject]
+            ->where([
+                ['level', 'in' , $level],
+                ['subject', 'in' , $subject]
             ])
             ->get([
                 "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
