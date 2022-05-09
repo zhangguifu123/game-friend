@@ -38,13 +38,9 @@ class CollectionController extends Controller
         if (!$request->route('id')) {
             return msg(3 , __LINE__);
         }
-        $worker   = GameCollection::query()->where('uid', $request->route('id'))->get()->toArray();
-        $workerIds = [];
-        foreach ($worker as $value){
-            $workerIds[] = $value['game_id'];
-        }
-        print_r($workerIds);
-        $gameList = Game::query()->whereIn('id',$workerIds)->get()->toArray();
+        $gameList   = GameCollection::query()->where('uid', $request->route('id'))
+            ->leftJoin('games', 'games.id', '=', 'game_collections.game_id')
+            ->get()->toArray();
         return msg(0, $gameList);
     }
 
