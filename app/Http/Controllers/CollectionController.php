@@ -44,7 +44,7 @@ class CollectionController extends Controller
             $workerIds[] = $value['game_id'];
         }
         print_r($workerIds);
-        $gameList = Game::query()->whereIn('games.id',$workerIds)->get()->toArray();
+        $gameList = Game::query()->whereIn('id',$workerIds)->get()->toArray();
         return msg(0, $gameList);
     }
 
