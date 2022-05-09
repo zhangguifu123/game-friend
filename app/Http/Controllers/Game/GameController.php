@@ -42,16 +42,38 @@ class GameController extends Controller
         $gameSum = $game->count();
         $gameList = $game
             ->limit(10)
-            ->offset($offset)->orderByDesc("games.created_at")
-            ->where([
-                ['level', 'in' , $level],
-                ['subject', 'in' , $subject]
-            ])
-            ->get([
+            ->offset($offset)->orderByDesc("games.created_at");
+        if (!$level && !$subject) {
+            $gameList->get([
                 "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
                 "content","game_time", "organizer", "collections", "img", "created_at"
-            ])
-            ->toArray();
+            ])->toArray();
+        }
+        if ($level && $subject){
+            $gameList->where([
+                ['level', 'in' , $level],
+                ['subject', 'in' , $subject]
+            ])->get([
+                "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
+                "content","game_time", "organizer", "collections", "img", "created_at"
+            ])->toArray();
+        }
+        if (!$level && $subject){
+            $gameList->where([
+                ['subject', 'in' , $subject]
+            ])->get([
+                "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
+                "content","game_time", "organizer", "collections", "img", "created_at"
+            ])->toArray();
+        }
+        if ($level && !$subject){
+            $gameList->where([
+                ['level', 'in' , $level]
+            ])->get([
+                "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
+                "content","game_time", "organizer", "collections", "img", "created_at"
+            ])->toArray();
+        }
         $gameList = $this->_isCollection($uid, $gameList);
 	    $message['gameList'] = $gameList;
         $message['total']    = $gameSum;
