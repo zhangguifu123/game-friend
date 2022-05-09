@@ -41,7 +41,7 @@ class CollectionController extends Controller
         $uid = $request->route('id');
         $gameList   = GameCollection::query()->where('uid', $uid)
             ->leftJoin('games','games.id', '=', 'game_collections.game_id')
-            ->get()
+            ->get(['games.id'])
             ->toArray();
         return msg(0, $gameList);
     }
