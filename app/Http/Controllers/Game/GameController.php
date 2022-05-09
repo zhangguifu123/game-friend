@@ -26,14 +26,15 @@ class GameController extends Controller
         //未知错误
         return msg(4, __LINE__);
     }
-
     /** 拉取列表信息 */
     public function getList(Request $request)
     {
-        if (!$request->input('uid')){
+        if (!$request->input('uid') || !$request->input('subject') || !$request->input('level')){
             return msg(11, __LINE__);
         }
-        $uid = $request->input('uid');
+        $uid     = $request->input('uid');
+        $level   = $request->input('level');
+        $subject = $request->input('subject');
         //分页，每页10条
         $limit = 10;
         $offset = $request->route("page") * $limit - $limit;
@@ -42,6 +43,10 @@ class GameController extends Controller
         $gameList = $game
             ->limit(10)
             ->offset($offset)->orderByDesc("games.created_at")
+            ->whereIn([
+                ['level', $level],
+                ['subject', $subject]
+            ])
             ->get([
                 "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
                 "content","game_time", "organizer", "collections", "img", "created_at"
