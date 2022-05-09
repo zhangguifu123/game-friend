@@ -42,7 +42,7 @@ class CollectionController extends Controller
         $gameList   = GameCollection::query()->where('uid', $uid)
 //            ->leftJoin('games','game_collections.game_id', '=', 'games.id')
             ->leftJoin('games', function ($join) use ($uid) {
-                $join->on('posts.id', '=', 'post_collections.post_id');
+                $join->on('games.id', '=', 'game_collections.game_id');
             })
             ->get()->toArray();
         return msg(0, $gameList);
