@@ -27,10 +27,14 @@ use App\Http\Controllers\BannerController;
 */
 
 Route::namespace('Api')->group(function (){
+
     //Banner
     Route::post('/banner/upload',[BannerController::class, 'upload']);
     Route::get('/banner/list/{page}',[BannerController::class, 'getList']);
+
     Route::post('/manager/login',[MangagerController::class, 'check']);
+    Route::get('manager/user/list/{page}',[UserController::class, 'showUser']);
+    Route::put('/{id}/update',[UserController::class, 'update']);
     Route::post('/login',[UserController::class, 'login']);
     Route::post('/check',[UserController::class, 'check']);
     Route::post('/avatar',[AvatarController::class, 'upload']);

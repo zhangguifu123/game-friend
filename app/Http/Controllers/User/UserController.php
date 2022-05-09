@@ -11,6 +11,54 @@ use GuzzleHttp;
 
 class UserController extends Controller
 {
+    //查看全部用户
+    public function showUser(Request $request)
+    {
+        //提取数据
+        $page = $request->route('page');
+        $limit = 13;
+        $offset = $page * $limit - $limit;
+        $user = User::query();
+        $userSum = $user->count();
+        $showUser = $user
+            ->limit(13)
+            ->offset($offset)
+            ->orderByDesc('created_at');
+        if(!$showUser){
+            return msg(4,__LINE__);
+        }
+        $datas = $showUser->get()->toArray();
+        $message = ['total' => $userSum, 'limit' => $limit, 'list' => $datas];
+        return msg(0,$message);
+    }
+    public function update(Request $request)
+    {
+        //检查数据格式
+        $params = [
+            'name'      => ['string'],
+            'avatar'    => ['string'],
+            'phone'     => ['string'],
+            'sex'       => ['string'],
+            'age'       => ['string'],
+            'college'   => ['string'],
+            'school'    => ['string'],
+            'specialty' => ['string'],
+            'introduction' => ['string'],
+            'status'    => ['integer'],
+        ];
+        $requestTest = handleData($request,$params);
+        if(!is_object($requestTest)){
+            return $requestTest;
+        }
+        //提取数据
+        $id = $request->route('id');
+        $data = $request->only(array_keys($params));
+        $updateStatus = User::query()->where('openid', $id)->update($data);
+        if($updateStatus){
+            return msg(0,__LINE__);
+        }
+        return msg(4,__LINE__);
+    }
     public function login(Request $request){
         //通过路由获取前端数据，并判断数据格式
         $data = $this->_dataHandle($request);
