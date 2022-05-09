@@ -29,7 +29,7 @@ class GameController extends Controller
     /** 拉取列表信息 */
     public function getList(Request $request)
     {
-        print_r($request->input('subject'));
+        var_dump($request->input('subject'));
         if (!$request->input('uid') || is_null($request->input('subject')) || is_null($request->input('level'))){
             return msg(11, __LINE__);
         }
