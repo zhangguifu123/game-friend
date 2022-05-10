@@ -29,7 +29,7 @@ use App\Http\Controllers\Manager\StatisticsController;
 
 Route::namespace('Api')->group(function (){
     //统计
-    Route::get('/statistics', [StatisticsController::class, 'statistic']);
+    Route::get('/statistics', [StatisticsController::class, 'statistics']);
     //Banner
     Route::post('/banner/upload',[BannerController::class, 'upload']);
     Route::get('/banner/list/{page}',[BannerController::class, 'getList']);
