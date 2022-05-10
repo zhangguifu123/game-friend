@@ -57,7 +57,7 @@ class GameController extends Controller
             ])->toArray();
         }
         if (!$level && $subject){
-            $gameList = $gameList->whereIn('subject', 'in' , $subject)->get([
+            $gameList = $gameList->whereIn('subject', $subject)->get([
                 "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
                 "content","game_time", "organizer", "collections", "img", "created_at"
             ])->toArray();
