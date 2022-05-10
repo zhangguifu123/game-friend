@@ -33,8 +33,8 @@ Route::namespace('Api')->group(function (){
     Route::get('/banner/list/{page}',[BannerController::class, 'getList']);
 
     Route::post('/manager/login',[MangagerController::class, 'check']);
-    Route::get('manager/user/list/{page}',[UserController::class, 'showUser']);
-    Route::put('/{id}/update',[UserController::class, 'update']);
+
+
     Route::post('/login',[UserController::class, 'login']);
     Route::post('/check',[UserController::class, 'check']);
     Route::post('/avatar',[AvatarController::class, 'upload']);
@@ -89,6 +89,11 @@ Route::namespace('Api')->group(function (){
     /**Game */
     Route::post('/game/list/{page}',[GameController::class, 'getList']);
     Route::group(['middleware' => 'manager.check'], function () {
+        Route::post('/manager/add',[MangagerController::class, 'add']);
+        Route::delete('/manager/{id}',[MangagerController::class, 'delete']);
+        Route::get('/manager/list',[MangagerController::class, 'getList']);
+        Route::put('/{id}/update',[UserController::class, 'update']);
+        Route::get('/user/list/{page}',[UserController::class, 'showUser']);
         //Game增删改查
         Route::post('/game/add',[GameController::class, 'publish']);
 	    Route::delete('/game/{id}',[GameController::class, 'delete']);
