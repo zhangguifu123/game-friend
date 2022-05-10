@@ -15,20 +15,20 @@ class StatisticsController extends Controller
         $game = Game::all();
         $gameCount = $game->count();
         $gameCollectionCounts = $game->sum('collections');
-        $gameViewCounts = $game->sum('views');
 
         $userCount = User::all()->count();
 
         $post = Post::all();
         $postCount = $post->count();
         $postCollectionCount = $post->sum('collections');
+        $postViewCounts = $post->sum('views');
 
         $count['game']['gameCount'] = $gameCount;
         $count['game']['gameCollectionCounts'] = $gameCollectionCounts;
-        $count['game']['gameViewCounts'] = $gameViewCounts;
         $count['user']['userCount'] = $userCount;
         $count['post']['postCount'] = $postCount;
         $count['post']['postCollectionCount'] = $postCollectionCount;
+        $count['post']['postViewCounts'] = $postViewCounts;
 
         return msg(0, $count);
     }
