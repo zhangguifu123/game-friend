@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\GameCollection;
 use App\Models\Manager\Game;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
