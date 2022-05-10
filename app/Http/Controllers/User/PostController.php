@@ -148,6 +148,7 @@ class PostController extends Controller
             "title"        => ["string", "max:50"],
             "content"      => ["string"],
             "level"        => ["string"],
+            "subject"        => ["string"],
         ];
         //是否缺失参数
         if (!$request->has(array_keys($mod))){
