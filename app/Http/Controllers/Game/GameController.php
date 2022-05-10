@@ -102,22 +102,11 @@ class GameController extends Controller
     /** 删除 */
     public function delete(Request $request)
     {
-        $files = [];
-        $game = Game::query()->find($request->route('id'));
-
-        $imgs = Game::query()->find($request->route('id'))->img;
-        $imgs = json_decode($imgs);
-        foreach ($imgs as $file){           //遍历结果去掉前缀
-            $replace = str_replace(config("app.url")."/storage/image/","",$file);
-            $files[] = $replace;
+        $game = Game::query()->find($request->route('id'))->update(['status' => 0]);
+        if ($game) {
+            return msg(0, __LINE__);
         }
-        $disk = Storage::disk('img');
-        foreach ($files as $file){   //遍历删除
-            $disk->delete($file);
-        }
-        $game->delete();
-
-        return msg(0, __LINE__);
+        return msg(4, __LINE__);
     }
 
     /** 修改 */

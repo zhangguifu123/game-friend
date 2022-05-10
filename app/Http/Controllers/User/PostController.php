@@ -109,15 +109,11 @@ class PostController extends Controller
     /** 删除 */
     public function delete(Request $request)
     {
-        $post = Post::query()->find($request->route('id'));
-
-        $imgs = Post::query()->find($request->route('id'))->img;
-        $file = str_replace(config("app.url")."/storage/image/","",$imgs);
-        $disk = Storage::disk('img');
-        $disk->delete($file);
-        $post->delete();
-
-        return msg(0, __LINE__);
+        $post = Post::query()->find($request->route('id'))->update(['status' => 0]);
+        if ($post) {
+            return msg(0, __LINE__);
+        }
+        return msg(4, __LINE__);
     }
 
     /** 修改 */
