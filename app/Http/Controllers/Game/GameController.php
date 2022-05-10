@@ -65,7 +65,7 @@ class GameController extends Controller
             ])->toArray();
         }
         if ($level && !$subject){
-            print_r(1);
+            print_r($level);
             $gameList = $gameList->where([
                 ['level', 'in' , $level]
             ])->get([
