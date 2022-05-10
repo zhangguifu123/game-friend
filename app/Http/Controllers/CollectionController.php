@@ -98,7 +98,7 @@ class CollectionController extends Controller
             })
             ->leftJoin('users','posts.publisher','=','users.openid')
             ->get([
-                "post_collections.id as collectionId", "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at", "collections", "phone"
+                "post_collections.id as collectionId", "subject", "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at", "collections", "phone"
             ])
             ->toArray();
         return msg(0, $gameList);
