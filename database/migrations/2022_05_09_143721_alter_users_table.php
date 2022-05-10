@@ -17,6 +17,7 @@ class AlterUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('sex')->default('请选择');
             $table->string('age')->default('无');
+            $table->string('well')->default('无');
             $table->string('college')->default('无');
             $table->string('school')->default('无');
             $table->string('specialty')->default('无');

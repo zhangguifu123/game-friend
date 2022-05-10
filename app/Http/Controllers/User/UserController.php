@@ -43,6 +43,7 @@ class UserController extends Controller
             'college'   => ['string'],
             'school'    => ['string'],
             'specialty' => ['string'],
+            'well'      => ['string'],
             'introduction' => ['string'],
             'status'    => ['integer'],
         ];
