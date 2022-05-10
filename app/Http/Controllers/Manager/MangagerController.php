@@ -42,10 +42,19 @@ class MangagerController extends Controller
         ]);
     }
     public function add (Request $request ) {
-        $data = $this->_dataHandle($request);
-        if (!is_array($data)){
-            return $data;
-        };
+        $params = array(
+            'phone'    => ['regex:/^[^\s]{8,20}$/'],
+            'password' => ['regex:/^[^\s]{8,20}$/'],
+            'department' => ['string'],
+            'level' => ['string'],
+            'name' => ['string'],
+        );
+        $requestTest = handleData($request,$params);
+        if(!is_object($requestTest)){
+            return $requestTest;
+        }
+        //提取数据
+        $data = $request->only(array_keys($params));
         $isManager = $request->header('Authorization');
         $Authorization    = substr($isManager, 7);
         $level  = Manager::query()->where('api_token', $Authorization)->first();
@@ -121,9 +130,6 @@ class MangagerController extends Controller
         $mod = array(
             'phone'    => ['regex:/^[^\s]{8,20}$/'],
             'password' => ['regex:/^[^\s]{8,20}$/'],
-            'department' => ['string'],
-            'level' => ['string'],
-            'name' => ['string'],
         );
         if (!$request->has(array_keys($mod))) {
             return msg(1, __LINE__);
