@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->string("title")->comment("标题");
             $table->string("theme")->comment("主题");
             $table->string("level")->comment("等级");
+            $table->string("subject")->comment("竞赛科目");
             $table->string("content")->comment("内容");
             $table->string('img')->comment('图片链接');
             $table->integer("views")->default(0)->comment("浏览量");
