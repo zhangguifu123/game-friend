@@ -15,6 +15,7 @@ use App\Http\Controllers\TipController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\Manager\StatisticsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,7 +28,8 @@ use App\Http\Controllers\BannerController;
 */
 
 Route::namespace('Api')->group(function (){
-
+    //统计
+    Route::get('/statistics', [StatisticsController::class, 'statistic']);
     //Banner
     Route::post('/banner/upload',[BannerController::class, 'upload']);
     Route::get('/banner/list/{page}',[BannerController::class, 'getList']);
