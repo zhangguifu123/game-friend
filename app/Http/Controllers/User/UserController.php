@@ -11,6 +11,13 @@ use GuzzleHttp;
 
 class UserController extends Controller
 {
+    public function getOneUser(Request $request){
+        if (!$request->route('id')) {
+            return msg(3 , __LINE__);
+        }
+        $worker   = User::query()->where('openid', $request->route('id'))->first();
+        return msg(0, $worker);
+    }
     //查看全部用户
     public function showUser(Request $request)
     {

@@ -33,12 +33,13 @@ Route::namespace('Api')->group(function (){
     //Banner
     Route::post('/banner/upload',[BannerController::class, 'upload']);
     Route::get('/banner/list/{page}',[BannerController::class, 'getList']);
-
     Route::post('/manager/login',[MangagerController::class, 'check']);
 
 
     Route::post('/login',[UserController::class, 'login']);
     Route::post('/check',[UserController::class, 'check']);
+    Route::get('/user/{id}',[UserController::class, 'getOneUser']);
+
     Route::post('/avatar',[AvatarController::class, 'upload']);
     Route::post('/authenticate',[UserController::class, 'authenticate']);
     //Notice

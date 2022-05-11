@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Manager\Game;
 use App\Models\User;
 use App\Models\User\Post;
+use \Redis;
+use \Exception;
 use Illuminate\Http\Request;
 
 class StatisticsController extends Controller
@@ -31,5 +33,15 @@ class StatisticsController extends Controller
         $count['post']['postViewCounts'] = $postViewCounts;
 
         return msg(0, $count);
+    }
+
+    public function setData(Request $request) {
+        // 如果redis连接失败 中止保存
+        try {
+            $redis = new Redis();
+            $redis->connect("game_redis", 6379);
+        } catch (Exception $e) {
+            return msg(500, "连接redis失败" . __LINE__);
+        }
     }
 }
