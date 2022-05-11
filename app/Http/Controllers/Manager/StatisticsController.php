@@ -37,11 +37,16 @@ class StatisticsController extends Controller
 
     public function setData(Request $request) {
         // 如果redis连接失败 中止保存
+        $gameId = $request->input('gameId');
+        $subject = $request->input('subject');
+        $openid = $request->input('openid');
         try {
             $redis = new Redis();
             $redis->connect("game_redis", 6379);
         } catch (Exception $e) {
             return msg(500, "连接redis失败" . __LINE__);
         }
+        $redis->hSet("gameData", $openid, $gameId . '_' . $subject);
+        $redis->hSet("studyData", $openid, $gameId . '_' . $subject);
     }
 }
