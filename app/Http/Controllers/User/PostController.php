@@ -83,7 +83,7 @@ class PostController extends Controller
         $uid = $request->input('uid');
         $post = Post::query()->leftJoin('users','posts.publisher','=','users.openid')
             ->get([
-                "posts.id", "publisher", "subject", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at"
+                "posts.id", "publisher", "subject", "users.avatar", "users.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at"
             ])->find($request->route('id'));
         if (
             !session()->has("mark" . $request->route('id'))
