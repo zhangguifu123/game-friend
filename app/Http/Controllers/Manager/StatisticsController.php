@@ -98,7 +98,7 @@ class StatisticsController extends Controller
         $fm1 = 0;
         $fm2 = 0;
         $fm3 = 0;
-        print_r($data);
+//        print_r($data);
         for ( $i = 0; $i < count($data); $i++ )
         {
             $id1_s = $redis->hget( "gameData:$firstOpenid", $data[$i]);
@@ -147,7 +147,8 @@ class StatisticsController extends Controller
                 }
             }
         }
-        var_dump($data); print_r(1);die();
+//        var_dump($data); print_r(1);
+        die();
         arsort($data);
         $data = array_keys($data);
         for ( $j = 0; $j < count($data); $j++ )
