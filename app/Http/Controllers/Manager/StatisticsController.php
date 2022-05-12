@@ -129,9 +129,10 @@ class StatisticsController extends Controller
         $res  = array();
         for( $userId = 1; $userId <= User::query()->count(); $userId++)
         {
-            if($userId != $masterId)
+            $check = User::query()->find($userId)->openid;
+            if($check != $masterId)
             {
-                $diff = $redis->sunion("video:".$masterId,"video:".$userId);
+                $diff = $redis->sunion("video:".$masterId,"video:".$check);
                 print_r($diff);
                 $data[$userId] = $this->show($diff, $masterId, $userId );
             }
