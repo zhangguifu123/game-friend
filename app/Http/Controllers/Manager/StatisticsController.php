@@ -113,10 +113,6 @@ class StatisticsController extends Controller
             $fm2  += $id2_S * $id2_S;
             $fm3  += $id1_s * $id2_S;
         }
-        print_r($fm1);
-        print_r($fm2);
-        print_r($fm3);
-        die();
         return $fm3 / sqrt($fm1) / sqrt($fm2);
     }
 
