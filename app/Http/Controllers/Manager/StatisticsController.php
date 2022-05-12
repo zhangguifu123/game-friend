@@ -146,7 +146,7 @@ class StatisticsController extends Controller
                 $data[$userId] = $this->show($diff, $masterId, $userId );
             }
         }
-        var_dump($data);die();
+        var_dump($data); print_r(1);die();
         arsort($data);
         $data = array_keys($data);
         for ( $j = 0; $j < count($data); $j++ )
