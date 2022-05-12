@@ -48,6 +48,8 @@ class StatisticsController extends Controller
         }
         $redis->hSet("gameData:$openid", $gameId, 1);
         $redis->sAdd("setGameData:", $gameId);
+
+        return msg(0, __LINE__);
     }
 
     public function test(Request $request) {
