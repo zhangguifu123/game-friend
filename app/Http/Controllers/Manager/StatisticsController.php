@@ -77,7 +77,7 @@ class StatisticsController extends Controller
 
     }
 
-    public function show( $data, $firstOpenid, $secondOpenid)
+    private function show( $data, $firstOpenid, $secondOpenid)
     {
         try {
             $redis = new Redis();
@@ -111,7 +111,7 @@ class StatisticsController extends Controller
      * @param Request $request
      * @return false|string
      */
-    public function VideoShow(Request $request)
+    public function videoShow(Request $request)
     {
         try {
             $redis = new Redis();
