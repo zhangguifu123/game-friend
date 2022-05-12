@@ -119,8 +119,8 @@ class StatisticsController extends Controller
         } catch (Exception $e) {
             return msg(500, "连接redis失败" . __LINE__);
         }
-
-        $masterId = $request['id'];
+        $data = $request->all();
+        $masterId = $data['id'];
         $data = array();
         $res  = array();
         for( $userId = 1; $userId <= User::query()->count(); $userId++)
