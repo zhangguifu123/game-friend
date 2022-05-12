@@ -101,11 +101,11 @@ class StatisticsController extends Controller
         $fm3 = 0;
         for ( $i = 0; $i < count($data); $i++ )
         {
-            $id1_s = $redis->hget( $firstOpenid, $data[$i]);
+            $id1_s = $redis->hget( "gameData:$firstOpenid", $data[$i]);
             if (!$id1_s) {
                 $id1_s = 0;
             }
-            $id2_S = $redis->hget( $secondOpenid, $data[$i]);
+            $id2_S = $redis->hget( "gameData:$secondOpenid", $data[$i]);
             if (!$id2_S) {
                 $id2_S = 0;
             }
