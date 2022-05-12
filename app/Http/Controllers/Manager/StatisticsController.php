@@ -47,7 +47,7 @@ class StatisticsController extends Controller
             return msg(500, "连接redis失败" . __LINE__);
         }
         $redis->hSet("gameData:$openid", $gameId, 1);
-        $redis->hSet("studyData", $openid, $subject);
+        $redis->sAdd("setGameData:", $gameId);
     }
 
     public function test(Request $request) {
