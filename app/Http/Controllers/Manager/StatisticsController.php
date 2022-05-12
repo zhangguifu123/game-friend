@@ -132,6 +132,7 @@ class StatisticsController extends Controller
             if($userId != $masterId)
             {
                 $diff = $redis->sunion("video:".$masterId,"video:".$userId);
+                print_r($diff);
                 $data[$userId] = $this->show($diff, $masterId, $userId );
             }
         }
