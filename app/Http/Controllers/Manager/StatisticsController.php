@@ -95,7 +95,7 @@ class StatisticsController extends Controller
         } catch (Exception $e) {
             return msg(500, "连接redis失败" . __LINE__);
         }
-
+        print_r($data);
         $fm1 = 0;
         $fm2 = 0;
         $fm3 = 0;
