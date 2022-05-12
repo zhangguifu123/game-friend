@@ -40,30 +40,19 @@ class GameController extends Controller
         $game     = Game::query();
         $gameSum  = $game->count();
         $gameList = $game->limit(10)->offset($offset)->orderByDesc("games.created_at");
-        if (!$level && !$subject) {
-            $gameList = $gameList->get([
-                "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
-                "content","game_time", "organizer", "collections", "img", "created_at"
-            ])->toArray();
-        }
         if ($level && $subject){
-            $gameList = $gameList->whereIn('level' , $level)->whereIn('subject' , $subject)->get([
-                "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
-                "content","game_time", "organizer", "collections", "img", "created_at"
-            ])->toArray();
+            $gameList = $gameList->whereIn('level' , $level)->whereIn('subject' , $subject);
         }
         if (!$level && $subject){
-            $gameList = $gameList->whereIn('subject', $subject)->get([
-                "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
-                "content","game_time", "organizer", "collections", "img", "created_at"
-            ])->toArray();
+            $gameList = $gameList->whereIn('subject', $subject);
         }
         if ($level && !$subject){
-            $gameList = $gameList->whereIn('level', $level)->get([
-                "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
-                "content","game_time", "organizer", "collections", "img", "created_at"
-            ])->toArray();
+            $gameList = $gameList->whereIn('level', $level);
         }
+        $gameList = $gameList->get([
+            "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
+            "content","game_time", "organizer", "collections", "img", "created_at","status"
+        ])->toArray();
         $gameList = $this->_isCollection($uid, $gameList);
 	    $message['gameList'] = $gameList;
         $message['total']    = $gameSum;

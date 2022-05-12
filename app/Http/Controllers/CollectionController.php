@@ -41,7 +41,7 @@ class CollectionController extends Controller
         $gameList   = GameCollection::query()->where('uid', $request->route('id'))
             ->leftJoin('games', 'games.id', '=', 'game_collections.game_id')
             ->get([
-                'game_collections.id as collectionId', 'game_id', 'publisher', 'name', 'sign_up_time', 'game_time', 'organizer', 'content', 'subject', 'level', 'collections', 'img'
+                'game_collections.id as collectionId', 'game_id', 'publisher', 'name', 'sign_up_time', 'game_time', 'organizer', 'content', 'subject', 'level', 'collections', 'img', 'games.status'
             ])->toArray();
         return msg(0, $gameList);
     }
@@ -98,7 +98,7 @@ class CollectionController extends Controller
             })
             ->leftJoin('users','posts.publisher','=','users.openid')
             ->get([
-                "post_collections.id as collectionId", "subject", "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at", "collections", "phone"
+                "post_collections.id as collectionId", "subject", "posts.id", "publisher", "users.avatar", "posts.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at", "collections", "phone", "posts.status"
             ])
             ->toArray();
         return msg(0, $gameList);

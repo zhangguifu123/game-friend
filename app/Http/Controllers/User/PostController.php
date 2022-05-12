@@ -45,7 +45,7 @@ class PostController extends Controller
             ->offset($offset)->orderByDesc("posts.created_at")
             ->leftJoin('users','posts.publisher','=','users.openid')
             ->get([
-                "posts.id", "publisher", "users.avatar", "subject", "users.name", "level", "theme", "title" ,"content","img", "views", "posts.created_at"
+                "posts.id", "publisher", "users.avatar", "subject", "users.name", "level", "theme", "title" ,"content","img", "views", "posts.status", "posts.created_at"
             ])
             ->toArray();
         $postList = $this->_isCollection($uid, $postList);
