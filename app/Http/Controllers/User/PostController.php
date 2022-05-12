@@ -29,6 +29,19 @@ class PostController extends Controller
         return msg(4, __LINE__);
     }
     /** 拉取列表信息 */
+    public function getMeList(Request $request)
+    {
+        if (!$request->route('id')) {
+            return msg(3 , __LINE__);
+        }
+        $openid = $request->route('id');
+        $worker   = Post::query()->where(
+            'openid', $openid
+        )->first();
+        $postList = $this->_isCollection($worker, $openid);
+        return msg(0, $postList);
+    }
+    /** 拉取列表信息 */
     public function getList(Request $request)
     {
         if (!$request->input('uid')){
