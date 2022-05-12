@@ -98,7 +98,6 @@ class StatisticsController extends Controller
         $fm1 = 0;
         $fm2 = 0;
         $fm3 = 0;
-//        print_r($data);
         for ( $i = 0; $i < count($data); $i++ )
         {
             $id1_s = $redis->hget( "gameData:$firstOpenid", $data[$i]);
@@ -147,12 +146,7 @@ class StatisticsController extends Controller
         }
         arsort($data);
         $data = array_keys($data);
-        for ( $j = 0; $j < count($data); $j++ )
-        {
-            print_r($data[$j]);
-            $res[] = User::query()->find($data[$j])->get()->first();
-
-        }
+        $res = User::query()->whereIn('id', $data)->get()->toArray();
         return msg(0, $res);
     }
 }
