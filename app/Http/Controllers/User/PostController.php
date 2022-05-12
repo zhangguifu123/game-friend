@@ -36,8 +36,8 @@ class PostController extends Controller
         }
         $openid = $request->route('id');
         $worker   = Post::query()->where(
-            'openid', $openid
-        )->first();
+            'publisher', $openid
+        )->get()->toArray();
         $postList = $this->_isCollection($worker, $openid);
         return msg(0, $postList);
     }
