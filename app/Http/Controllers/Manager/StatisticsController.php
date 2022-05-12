@@ -141,6 +141,7 @@ class StatisticsController extends Controller
                 print_r($check."\n");
                 $checkSet = $redis->sInter("setGameData:".$masterId,"setGameData:".$check);
                 if (!is_null($checkSet)) {
+                    var_dump($checkSet);
                     $diff = $redis->sunion("setGameData:".$masterId,"setGameData:".$check);
                     $data[$userId] = $this->show($diff, $masterId, $check );
                 }
