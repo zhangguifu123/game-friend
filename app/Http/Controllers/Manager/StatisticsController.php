@@ -149,7 +149,7 @@ class StatisticsController extends Controller
         $data = array_keys($data);
         for ( $j = 0; $j < count($data); $j++ )
         {
-            $t = User::query()->where('openid',$data[$j])->get()->first();
+            $t = User::query()->find($data[$j])->get()->first();
             array_push($res,$t);
         }
         return msg(0, $res);
