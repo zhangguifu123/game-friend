@@ -79,7 +79,8 @@ class MangagerController extends Controller
             return msg(2,__LINE__);
         }
         if (Hash::check($data['password'], $user->password)) { //匹配数据库中的密码
-            return msg(0,['token'=>$user->api_token]);
+            session(["level" => $user->level]);
+            return msg(0, $user);
         } else {
             return msg(1,__LINE__);
         }
