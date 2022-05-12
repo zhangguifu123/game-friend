@@ -133,7 +133,7 @@ class StatisticsController extends Controller
             if($check != $masterId)
             {
                 $diff = $redis->sunion("gameData:".$masterId,"gameData:".$check);
-                print_r($diff);
+                var_dump($diff);die();
                 $data[$userId] = $this->show($diff, $masterId, $userId );
             }
         }
