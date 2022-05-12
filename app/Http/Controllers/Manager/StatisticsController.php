@@ -132,6 +132,8 @@ class StatisticsController extends Controller
             $check = User::query()->find($userId)->openid;
             if($check != $masterId)
             {
+                print_r("gameData:".$masterId);
+                print_r("gameData:".$check);
                 $diff = $redis->sunion("gameData:".$masterId,"gameData:".$check);
                 var_dump($diff);die();
                 $data[$userId] = $this->show($diff, $masterId, $userId );
