@@ -58,25 +58,25 @@ class StatisticsController extends Controller
             return msg(500, "连接redis失败" . __LINE__);
         }
 
-//        $redis->hSet('gameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '2', 1);
-//        $redis->hSet('gameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '4', 1);
+        $redis->hSet('gameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '2', 1);
+        $redis->hSet('gameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '4', 1);
         $redis->sAdd('setGameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '4');
         $redis->sAdd('setGameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '2');
 
-//        $redis->hSet('gameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '4', 1);
-//        $redis->hSet('gameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '2', 1);
+        $redis->hSet('gameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '4', 1);
+        $redis->hSet('gameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '2', 1);
         $redis->sAdd('setGameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '4');
         $redis->sAdd('setGameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '2');
 
-//        $redis->hSet('gameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '2', 1);
-//        $redis->hSet('gameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '7', 1);
+        $redis->hSet('gameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '2', 1);
+        $redis->hSet('gameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '7', 1);
         $redis->sAdd('setGameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '7');
         $redis->sAdd('setGameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '2');
 
-//        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '2', 1);
-//        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '7', 1);
-//        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '4', 1);
-//        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '8', 1);
+        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '2', 1);
+        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '7', 1);
+        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '4', 1);
+        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '8', 1);
         $redis->sAdd('setGameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '4');
         $redis->sAdd('setGameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '2');
         $redis->sAdd('setGameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '7');
@@ -142,9 +142,7 @@ class StatisticsController extends Controller
             $check = User::query()->find($userId)->openid;
             if($check != $masterId)
             {
-                print_r("gameData:".$masterId);
-                print_r("gameData:".$check);
-                $diff = $redis->sunion("gameData:".$masterId,"gameData:".$check);
+                $diff = $redis->sunion("setGameData:".$masterId,"setGameData:".$check);
                 var_dump($diff);die();
                 $data[$userId] = $this->show($diff, $masterId, $userId );
             }
