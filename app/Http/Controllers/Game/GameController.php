@@ -25,6 +25,31 @@ class GameController extends Controller
         //未知错误
         return msg(4, __LINE__);
     }
+    //判断近期是否浏览过该文章，若没有浏览量+1 and 建立近期已浏览session
+    public function getOneGame(Request $request){
+        if (!$request->input('uid')){
+            return msg(11, __LINE__);
+        }
+        $uid = $request->input('uid');
+        $game = Game::query()
+            ->get([
+                "id", "publisher",  "name", "level", "subject" ,"sign_up_time",
+                "content","game_time", "organizer", "collections", "img", "created_at","status"
+            ])->find($request->route('id'));
+        $gameCollection = GameCollection::query()->where('uid', $uid)->get()->toArray();
+        $collectionArray  = [];
+        foreach ($gameCollection as $value){
+            $collectionArray[$value['game_id']] = $value['id'];
+        }
+        if (array_key_exists($game['id'], $collectionArray)) {
+            $game->isCollection = 1;
+            $game->collectionId = $collectionArray[$game['id']];
+        } else {
+            $game->isCollection = 0;
+        };
+
+        return msg(0,$game);
+    }
     /** 拉取列表信息 */
     public function getList(Request $request)
     {

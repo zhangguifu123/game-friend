@@ -93,6 +93,7 @@ Route::namespace('Api')->group(function (){
     Route::delete('/tip/{id}',[TipController::class, 'delete']);
     Route::put('/tip/{id}',[TipController::class, 'update']);
     /**Game */
+    Route::get('/game/{id}',[GameController::class, 'getOneGame']);
     Route::post('/game/list/{page}',[GameController::class, 'getList']);
     Route::group(['middleware' => 'manager.check'], function () {
         Route::post('/manager/add',[MangagerController::class, 'add']);
