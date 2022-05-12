@@ -131,7 +131,6 @@ class StatisticsController extends Controller
         $data = $request->all();
         $masterId = $data['id'];
         $data = array();
-        $res  = array();
         for( $userId = 1; $userId <= User::query()->count(); $userId++)
         {
             $check = User::query()->find($userId)->openid;
