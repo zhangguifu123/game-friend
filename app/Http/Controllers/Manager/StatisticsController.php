@@ -98,7 +98,6 @@ class StatisticsController extends Controller
         $fm1 = 0;
         $fm2 = 0;
         $fm3 = 0;
-        print_r($secondOpenid."\n");
         print_r($data);
         for ( $i = 0; $i < count($data); $i++ )
         {
