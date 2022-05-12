@@ -129,7 +129,7 @@ class PostController extends Controller
         $post = Post::query()->find($request->route('id'));
         $post = $post->update($data);
         if ($post) {
-            return msg(0, __LINE__);
+            return msg(0, $post);
         }
         return msg(4, __LINE__);
     }

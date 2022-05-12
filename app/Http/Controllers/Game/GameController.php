@@ -114,7 +114,7 @@ class GameController extends Controller
         $game = Game::query()->find($request->route('id'));
         $game = $game->update($data);
         if ($game) {
-            return msg(0, __LINE__);
+            return msg(0, $game);
         }
         return msg(4, __LINE__);
     }
