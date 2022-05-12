@@ -46,7 +46,98 @@ class StatisticsController extends Controller
         } catch (Exception $e) {
             return msg(500, "连接redis失败" . __LINE__);
         }
-        $redis->hSet("gameData", $openid, $gameId . '_' . $subject);
+        $redis->hSet("gameData:$openid", $gameId, 1);
         $redis->hSet("studyData", $openid, $subject);
+    }
+
+    public function test(Request $request) {
+        try {
+            $redis = new Redis();
+            $redis->connect("game_redis", 6379);
+        } catch (Exception $e) {
+            return msg(500, "连接redis失败" . __LINE__);
+        }
+
+        $redis->hSet('gameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '2', 1);
+        $redis->hSet('gameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '4', 1);
+
+
+        $redis->hSet('gameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '4', 1);
+        $redis->hSet('gameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '2', 1);
+
+        $redis->hSet('gameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '2', 1);
+        $redis->hSet('gameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '7', 1);
+
+        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '2', 1);
+        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '7', 1);
+        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '4', 1);
+        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '8', 1);
+
+
+
+    }
+
+    public function show( $data, $firstOpenid, $secondOpenid)
+    {
+        try {
+            $redis = new Redis();
+            $redis->connect("game_redis", 6379);
+        } catch (Exception $e) {
+            return msg(500, "连接redis失败" . __LINE__);
+        }
+
+        $fm1 = 0;
+        $fm2 = 0;
+        $fm3 = 0;
+        for ( $i = 0; $i < count($data); $i++ )
+        {
+            $id1_s = $redis->hget( $firstOpenid, $data[$i]);
+            if (!$id1_s) {
+                $id1_s = 0;
+            }
+            $id2_S = $redis->hget( $secondOpenid, $data[$i]);
+            if (!$id2_S) {
+                $id2_S = 0;
+            }
+            $fm1  += $id1_s * $id1_s;
+            $fm2  += $id2_S * $id2_S;
+            $fm3  += $id1_s * $id2_S;
+        }
+        return $fm3 / sqrt($fm1) / sqrt($fm2);
+    }
+
+    /**
+     * 视频推送
+     * @param Request $request
+     * @return false|string
+     */
+    public function VideoShow(Request $request)
+    {
+        try {
+            $redis = new Redis();
+            $redis->connect("game_redis", 6379);
+        } catch (Exception $e) {
+            return msg(500, "连接redis失败" . __LINE__);
+        }
+
+        $masterId = $request['id'];
+        $data = array();
+        $res  = array();
+        for( $userId = 1; $userId <= User::query()->count(); $userId++)
+        {
+            if($userId != $masterId)
+            {
+                $diff = $redis->sunion("video:".$masterId,"video:".$userId);
+                $data[$userId] = $this->show($diff, $masterId, $userId );
+            }
+        }
+        arsort($data);
+        $data = array_keys($data);
+        for ( $j = 0; $j < count($data); $j++ )
+        {
+            $t = User::query()->where('openid',$data[$j])->get()->first();
+            array_push($res,$t);
+        }
+        return msg(0, $res);
     }
 }
