@@ -109,7 +109,6 @@ class StatisticsController extends Controller
             if (!$id2_S) {
                 $id2_S = 0;
             }
-            print_r($id1_s);print_r($id2_S);die();
             $fm1  += $id1_s * $id1_s;
             $fm2  += $id2_S * $id2_S;
             $fm3  += $id1_s * $id2_S;
