@@ -99,6 +99,7 @@ class StatisticsController extends Controller
         $fm2 = 0;
         $fm3 = 0;
         print_r($secondOpenid."\n");
+        print_r($data);
         for ( $i = 0; $i < count($data); $i++ )
         {
             $id1_s = $redis->hget( "gameData:$firstOpenid", $data[$i]);
