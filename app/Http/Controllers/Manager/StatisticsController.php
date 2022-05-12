@@ -150,8 +150,8 @@ class StatisticsController extends Controller
         print_r($data);
         for ( $j = 0; $j < count($data); $j++ )
         {
-            $t = User::query()->find($data[$j])->get()->first();
-            array_push($res,$t);
+            $res[] = User::query()->find($data[$j])->get()->first();
+
         }
         return msg(0, $res);
     }
