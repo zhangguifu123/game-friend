@@ -139,6 +139,7 @@ class StatisticsController extends Controller
             $check = User::query()->find($userId)->openid;
             if($check != $masterId)
             {
+                print_r($check."\n");
                 $checkSet = $redis->sInter("setGameData:".$masterId,"setGameData:".$check);
                 if (!$checkSet) {
                     break;
