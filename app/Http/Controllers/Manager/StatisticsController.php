@@ -149,6 +149,7 @@ class StatisticsController extends Controller
         $data = array_keys($data);
         for ( $j = 0; $j < count($data); $j++ )
         {
+            print_r($data[$j]);
             $res[] = User::query()->find($data[$j])->get()->first();
 
         }
