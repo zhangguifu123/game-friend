@@ -35,10 +35,10 @@ class PostController extends Controller
             return msg(3 , __LINE__);
         }
         $openid = $request->route('id');
-        $worker   = Post::query()->where(
+        $postList   = Post::query()->where(
             'publisher', $openid
         )->get()->toArray();
-        $postList = $this->_isCollection($worker, $openid);
+        $postList = $this->_isCollection($openid, $postList);
         return msg(0, $postList);
     }
     /** 拉取列表信息 */
