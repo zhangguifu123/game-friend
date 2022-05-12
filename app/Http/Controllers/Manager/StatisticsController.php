@@ -145,9 +145,9 @@ class StatisticsController extends Controller
                 }
             }
         }
+        arsort($data);
         var_dump($data); print_r(1);
         die();
-        arsort($data);
         $data = array_keys($data);
         for ( $j = 0; $j < count($data); $j++ )
         {
