@@ -101,6 +101,7 @@ class MangagerController extends Controller
         if (!$manager) {
             return msg(3, "目标不存在" . __LINE__);
         } else if($manager->level > 0) {
+            print_r($manager->level);
             return msg(3, "权限不足" .__LINE__);
         }
         $result = $manager->delete();
