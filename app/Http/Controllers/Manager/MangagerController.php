@@ -36,7 +36,9 @@ class MangagerController extends Controller
     {
         return Manager::create([
             'phone' => $data['phone'],
-            'status' => $data['status'],
+            'department' => $data['department'],
+            'level' => $data['level'],
+            'name' => $data['name'],
             'password' => Hash::make($data['password']),
             'api_token' => Str::random(60),
         ]);
