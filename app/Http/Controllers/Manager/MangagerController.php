@@ -117,7 +117,8 @@ class MangagerController extends Controller
         $manager_list = Manager::query()->get(['id', 'name', 'phone', 'department', 'level'])->toArray();
         $level = [
             "0" => "超级管理员",
-            "1" => "普通管理员"
+            "1" => "普通管理员",
+            "2" => "运营人员"
         ];
 
         foreach ($manager_list as $manager) {
