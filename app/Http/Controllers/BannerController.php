@@ -10,10 +10,14 @@ class BannerController extends Controller
     //
     //
     public function upload(Request $request) {
-        if (!$request->input('image') || !$request->input('name') || !$request->input('gameId')) {
+        if (!$request->input('image') || !$request->input('name') || !$request->input('gameId') || !$request->input('managerName') || !$request->input('managerId')) {
             return msg(3 , __LINE__);
         }
-        $banner   = new Banner(['image' => $request->input('image'), 'name' => $request->input('name'), 'game_id' => $request->input('gameId')]);
+        $data = $request->all();
+        $data['game_id'] = $data['gameId'];
+        $data['manager_id'] = $data['managerId'];
+        $data['manager_name'] = $data['managerName'];
+        $banner   = new Banner($data);
         $banner->save();
         return msg(0, $banner);
     }
