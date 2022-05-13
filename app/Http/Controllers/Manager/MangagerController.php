@@ -120,7 +120,7 @@ class MangagerController extends Controller
             "1" => "普通管理员"
         ];
 
-        foreach ($manager_list as &$manager) {
+        foreach ($manager_list as $manager) {
             $manager["level"] = $level[$manager["level"]];
         }
         $list_count = Manager::query()->count();
