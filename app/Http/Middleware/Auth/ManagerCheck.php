@@ -25,10 +25,6 @@ class ManagerCheck
         if (!$level) {
             return response(msg(13, __LINE__));
         }
-        $level  = $level->level;
-        if ($level != 0) {
-            return response(msg(10, __LINE__));
-        }
         return $next($request);
     }
 }
