@@ -48,7 +48,7 @@ class MangagerController extends Controller
             'phone'    => ['regex:/^[^\s]{8,20}$/'],
             'password' => ['regex:/^[^\s]{8,20}$/'],
             'department' => ['string'],
-            'level' => ['string'],
+            'level' => ['integer'],
             'name' => ['string'],
         );
         $requestTest = handleData($request,$params);
