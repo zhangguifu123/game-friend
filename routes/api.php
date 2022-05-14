@@ -32,6 +32,7 @@ Route::namespace('Api')->group(function (){
     //统计
     Route::post('/test', [StatisticsController::class, 'test']);
     Route::get('/viewShow', [StatisticsController::class, 'gameShow']);
+    Route::get('/studyShow', [StatisticsController::class, 'studyShow']);
     Route::post('/setData', [StatisticsController::class, 'setData']);
     Route::get('/statistics', [StatisticsController::class, 'statistics']);
     //Banner
