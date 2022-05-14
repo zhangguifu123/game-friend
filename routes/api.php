@@ -31,7 +31,7 @@ use App\Http\Controllers\Manager\StatisticsController;
 Route::namespace('Api')->group(function (){
     //统计
     Route::post('/test', [StatisticsController::class, 'test']);
-    Route::get('/viewShow', [StatisticsController::class, 'videoShow']);
+    Route::get('/viewShow', [StatisticsController::class, 'gameShow']);
     Route::post('/setData', [StatisticsController::class, 'setData']);
     Route::get('/statistics', [StatisticsController::class, 'statistics']);
     //Banner

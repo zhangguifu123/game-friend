@@ -71,34 +71,49 @@ class StatisticsController extends Controller
         } catch (Exception $e) {
             return msg(500, "连接redis失败" . __LINE__);
         }
+        $redis->hSet("subjectData:owEKj5QWo6O9JyGB0oRiDRWSPFuc", '数学建模大赛', 2);
+        $redis->hSet("subjectData:owEKj5QWo6O9JyGB0oRiDRWSPFuc", '物理竞赛', 3);
+        $redis->hSet("subjectData:owEKj5QWo6O9JyGB0oRiDRWSPFuc", '电子竞赛', 4);
+//        $redis->hSet('gameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '2', 1);
+//        $redis->hSet('gameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '4', 1);
+//        $redis->sAdd('setGameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '4');
+//        $redis->sAdd('setGameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '2');
+//
+//        $redis->hSet('gameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '4', 1);
+//        $redis->hSet('gameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '2', 1);
+//        $redis->sAdd('setGameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '4');
+//        $redis->sAdd('setGameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '2');
+//
+//        $redis->hSet('gameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '2', 1);
+//        $redis->hSet('gameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '7', 1);
+//        $redis->sAdd('setGameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '7');
+//        $redis->sAdd('setGameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '2');
+//
+//        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '2', 1);
+//        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '7', 1);
+//        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '4', 1);
+//        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '8', 1);
+//        $redis->sAdd('setGameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '4');
+//        $redis->sAdd('setGameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '2');
+//        $redis->sAdd('setGameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '7');
+//        $redis->sAdd('setGameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '8');
 
-        $redis->hSet('gameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '2', 1);
-        $redis->hSet('gameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '4', 1);
-        $redis->sAdd('setGameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '4');
-        $redis->sAdd('setGameData:' . 'owEKj5QWo6O9JyGB0oRiDRWSPFuc', '2');
-
-        $redis->hSet('gameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '4', 1);
-        $redis->hSet('gameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '2', 1);
-        $redis->sAdd('setGameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '4');
-        $redis->sAdd('setGameData:' . 'owEKj5dCTS4lFsoxzVPW_TTkwPkc', '2');
-
-        $redis->hSet('gameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '2', 1);
-        $redis->hSet('gameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '7', 1);
-        $redis->sAdd('setGameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '7');
-        $redis->sAdd('setGameData:' . 'owEKj5R9O19xhICch0p7qQmed3Tc', '2');
-
-        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '2', 1);
-        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '7', 1);
-        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '4', 1);
-        $redis->hSet('gameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '8', 1);
-        $redis->sAdd('setGameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '4');
-        $redis->sAdd('setGameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '2');
-        $redis->sAdd('setGameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '7');
-        $redis->sAdd('setGameData:' . 'owEKj5b23gZVTpwj5B0HSFXPtg7A', '8');
 
 
 
+    }
 
+    public function studyShow(Request $request) {
+        try {
+            $redis = new Redis();
+            $redis->connect("game_redis", 6379);
+        } catch (Exception $e) {
+            return msg(500, "连接redis失败" . __LINE__);
+        }
+        $data = $request->all();
+        $openid = $data['id'];
+        $subjects = $redis->hGetAll("subjectData:$openid");
+        print_r($subjects);
     }
 
     private function show( $data, $firstOpenid, $secondOpenid)
@@ -130,11 +145,11 @@ class StatisticsController extends Controller
     }
 
     /**
-     * 视频推送
+     * game
      * @param Request $request
      * @return false|string
      */
-    public function videoShow(Request $request)
+    public function gameShow(Request $request)
     {
         try {
             $redis = new Redis();
