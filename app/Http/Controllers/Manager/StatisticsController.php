@@ -114,7 +114,7 @@ class StatisticsController extends Controller
         $data = $request->all();
         $openid = $data['id'];
         $subjects = $redis->hGetAll("subjectData:$openid");
-        asort($subjects);
+        $subjects = asort($subjects);
         print_r($subjects);
         $subjects = array_keys($subjects);
         print_r($subjects);
