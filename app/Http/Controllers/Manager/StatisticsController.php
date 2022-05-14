@@ -46,7 +46,19 @@ class StatisticsController extends Controller
         } catch (Exception $e) {
             return msg(500, "连接redis失败" . __LINE__);
         }
-        $redis->hSet("gameData:$openid", $gameId, 1);
+        $check = $redis->hGet("gameData:$openid", $gameId);
+        if (!$check) {
+            $redis->hSet("gameData:$openid", $gameId, 1);
+        }
+
+        $check = $redis->hGet("subjectData:$openid", $subject);
+        if (!$check) {
+            $redis->hSet("subjectData:$openid", $subject, 1);
+        } else {
+            $sum = $check + 1;
+            $redis->hSet("subjectData:$openid", $subject, $sum);
+        }
+
         $redis->sAdd("setGameData:", $gameId);
 
         return msg(0, __LINE__);
