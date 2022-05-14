@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Models\Manager\Game;
+use App\Models\StudyInformation;
 use App\Models\User;
 use App\Models\User\Post;
 use \Redis;
@@ -113,7 +114,9 @@ class StatisticsController extends Controller
         $data = $request->all();
         $openid = $data['id'];
         $subjects = $redis->hGetAll("subjectData:$openid");
-        print_r($subjects);
+        asort($subjects);
+        $result = StudyInformation::query()->whereIn('subject', $subjects)->get()->toArray();
+        return msg(0, $result);
     }
 
     private function show( $data, $firstOpenid, $secondOpenid)
