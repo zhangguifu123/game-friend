@@ -115,6 +115,8 @@ class StatisticsController extends Controller
         $openid = $data['id'];
         $subjects = $redis->hGetAll("subjectData:$openid");
         asort($subjects);
+        $subjects = array_keys($subjects);
+        print_r($subjects);
         $result = StudyInformation::query()->whereIn('subject', $subjects)->get()->toArray();
         return msg(0, $result);
     }
