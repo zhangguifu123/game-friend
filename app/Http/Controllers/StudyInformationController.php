@@ -9,7 +9,7 @@ class StudyInformationController extends Controller
 {
     //
     public function upload(Request $request) {
-        if (!$request->input('image') || !$request->input('name') || !$request->input('game_id') || !$request->input('manager_name') || !$request->input('manager_id')) {
+        if (!$request->input('url') || !$request->input('name') || !$request->input('subject') || !$request->input('manager_name') || !$request->input('manager_id')) {
             return msg(3 , __LINE__);
         }
         $data = $request->all();
