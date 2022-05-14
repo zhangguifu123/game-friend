@@ -15,6 +15,7 @@ use App\Http\Controllers\TipController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\StudyInformationController;
 use App\Http\Controllers\Manager\StatisticsController;
 /*
 |--------------------------------------------------------------------------
@@ -36,8 +37,13 @@ Route::namespace('Api')->group(function (){
     //Banner
     Route::post('/banner/upload',[BannerController::class, 'upload']);
     Route::get('/banner/list/{page}',[BannerController::class, 'getList']);
+    Route::delete('/banner/{id}',[BannerController::class, 'delete']);
     Route::post('/manager/login',[MangagerController::class, 'check']);
 
+    //StudyInformation
+    Route::post('/study/upload',[StudyInformationController::class, 'upload']);
+    Route::get('/study/list/{page}',[StudyInformationController::class, 'getList']);
+    Route::delete('/study/{id}',[StudyInformationController::class, 'delete']);
 
     Route::post('/login',[UserController::class, 'login']);
     Route::post('/check',[UserController::class, 'check']);
