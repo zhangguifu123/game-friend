@@ -50,6 +50,9 @@ class StatisticsController extends Controller
         $check = $redis->hGet("gameData:$openid", $gameId);
         if (!$check) {
             $redis->hSet("gameData:$openid", $gameId, 1);
+        } else {
+            $sum = $check + 1;
+            $redis->hSet("gameData:$openid", $gameId, $sum);
         }
 
         $check = $redis->hGet("subjectData:$openid", $subject);
