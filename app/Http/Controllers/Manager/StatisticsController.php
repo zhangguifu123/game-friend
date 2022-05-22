@@ -171,9 +171,9 @@ class StatisticsController extends Controller
         for( $userId = 1; $userId <= User::query()->count(); $userId++)
         {
             $check = User::query()->find($userId);
-//            print_r($check['openid']);
-            print_r($userId);
-            print_r("\n");
+            if (!$check){
+                continue;
+            }
             $check = $check['openid'];
             if($check != $masterId)
             {
