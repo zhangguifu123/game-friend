@@ -171,8 +171,8 @@ class StatisticsController extends Controller
         for( $userId = 1; $userId <= User::query()->count(); $userId++)
         {
             $check = User::query()->find($userId);
-            print_r($check);
-            $check = $check->openid;
+            print_r($check['openid']);
+            $check = $check['openid'];
             if($check != $masterId)
             {
                 $diff = $redis->sInter("setGameData:".$masterId,"setGameData:".$check);
