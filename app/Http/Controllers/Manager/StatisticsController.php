@@ -172,6 +172,7 @@ class StatisticsController extends Controller
         {
             $check = User::query()->find($userId);
             print_r($check['openid']);
+            print_r($userId);
             print_r("\n");
             $check = $check['openid'];
             if($check != $masterId)
