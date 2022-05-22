@@ -137,7 +137,7 @@ class UserController extends Controller
         //声明理想数据格式
         $mod = [
             "name"    => ["string"],
-            "js_code"  => ["string"],
+            "js_code" => ["string"],
             "avatar"  => ["string"],
         ];
         //是否缺失参数

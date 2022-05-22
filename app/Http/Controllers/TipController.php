@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class TipController extends Controller
 {
-    //发布赛事
+    //提出反馈
     public function publish(Request $request){
         //通过路由获取前端数据，并判断数据格式
         $data = $this->_dataHandle($request);

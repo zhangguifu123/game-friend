@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class StudyInformationController extends Controller
 {
-    //
+    //上传资料
     public function upload(Request $request) {
         if (!$request->input('url') || !$request->input('name') || !$request->input('subject') || !$request->input('manager_name') || !$request->input('manager_id')) {
             return msg(3 , __LINE__);
@@ -17,7 +17,7 @@ class StudyInformationController extends Controller
         $studyInformation->save();
         return msg(0, $studyInformation);
     }
-
+    //删除资料
     public function delete (Request $request) {
         if (!$request->route('id')) {
             return msg(3 , __LINE__);

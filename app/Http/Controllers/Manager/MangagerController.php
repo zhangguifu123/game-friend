@@ -118,7 +118,6 @@ class MangagerController extends Controller
         }
     }
     //获取管理员列表
-
     public function getList()
     {
         $manager_list = Manager::query()->get(['id', 'name', 'phone', 'department', 'level'])->toArray();
