@@ -177,8 +177,8 @@ class StatisticsController extends Controller
             $check = $check['openid'];
             if($check != $masterId)
             {
+                print_r($masterId);print_r($check);
                 $diff = $redis->sInter("setGameData:".$masterId,"setGameData:".$check);
-                print_r($diff);
                 if (isset($diff[0])) {
                     $union = $redis->sunion("setGameData:".$masterId,"setGameData:".$check);
                     $data[$userId] = $this->show($union, $masterId, $check );
