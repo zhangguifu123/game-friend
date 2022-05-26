@@ -185,6 +185,7 @@ class StatisticsController extends Controller
             }
         }
         arsort($data);
+        print_r($data);die();
         $data = array_keys($data);
         $res = User::query()->whereIn('id', $data)->get()->toArray();
         return msg(0, $res);
