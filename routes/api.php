@@ -45,7 +45,7 @@ Route::namespace('Api')->group(function (){
     Route::post('/study/upload',[StudyInformationController::class, 'upload']);
     Route::get('/study/list/{page}',[StudyInformationController::class, 'getList']);
     Route::delete('/study/{id}',[StudyInformationController::class, 'delete']);
-
+    //登陆API
     Route::post('/login',[UserController::class, 'login']);
     Route::post('/check',[UserController::class, 'check']);
     Route::get('/user/{id}',[UserController::class, 'getOneUser']);
@@ -65,14 +65,14 @@ Route::namespace('Api')->group(function (){
     Route::delete('/collection/post/{id}',[CollectionController::class, 'deletePostCollection']);
     Route::delete('/collection/game/{id}',[CollectionController::class, 'deleteGameCollection']);
     //征友贴评论区
-    Route::post('/posts/{id}/comment',[CommentController::class, 'publish']);
+    Route::post('/posts/{id}/comment',[CommentController::class, 'publish'])->middleware('user.status.check');
     Route::delete('/posts/comment/{id}',[CommentController::class, 'delete']);
     Route::get('/posts/{id}/comment',[CommentController::class, 'getList']);
-    Route::post('/posts/comment/{id}/reply',[ReplyController::class, 'publish']);
+    Route::post('/posts/comment/{id}/reply',[ReplyController::class, 'publish'])->middleware('user.status.check');
     Route::delete('/posts/comment/{id}/reply',[ReplyController::class, 'delete']);
     Route::get('/posts/comment/{id}/reply',[ReplyController::class, 'getList']);
     //征友贴
-    Route::post('/posts/add',[PostController::class, 'publish']);
+    Route::post('/posts/add',[PostController::class, 'publish'])->middleware('user.status.check');
     Route::delete('/posts/{id}',[PostController::class, 'delete']);
     Route::put('/posts/{id}',[PostController::class, 'update']);
     Route::get('/posts/{id}',[PostController::class, 'addView']);
