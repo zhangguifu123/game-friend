@@ -31,7 +31,7 @@ class StopTalk
         }
         $level = $user['status'];
         if ($level == 1) {
-            return response(msg(13, __LINE__));
+            return response(msg(14, __LINE__));
         }
         return $next($request);
     }
