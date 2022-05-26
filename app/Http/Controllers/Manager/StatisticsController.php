@@ -50,6 +50,7 @@ class StatisticsController extends Controller
         $check = $redis->hGet("gameData:$openid", $gameId);
         if (!$check) {
             $redis->hSet("gameData:$openid", $gameId, 1);
+            $redis->sAdd("setGameData:$openid", $gameId);
         } else {
             $sum = $check + 1;
             $redis->hSet("gameData:$openid", $gameId, $sum);
@@ -177,7 +178,6 @@ class StatisticsController extends Controller
             $check = $check['openid'];
             if($check != $masterId)
             {
-                print_r($masterId);print_r("\n");print_r($check);die();
                 $diff = $redis->sInter("setGameData:".$masterId,"setGameData:".$check);
                 if (isset($diff[0])) {
                     $union = $redis->sunion("setGameData:".$masterId,"setGameData:".$check);
