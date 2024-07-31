@@ -9,11 +9,9 @@ Game-Friend is a mini program designed specifically for university students to h
 ### Main Features
 
 1. **Teammate Recommendation**: Automatically recommends suitable teammates based on the user's major, degree, and achievements.
-![13541722406273_ pic](https://github.com/user-attachments/assets/76fedbe4-8747-49ae-bc56-3379a42e9f5b)
 2. **Group Chat**: Supports multi-user group chat for convenient team communication and collaboration.
-![13591722408028_ pic](https://github.com/user-attachments/assets/4ac8a4a7-3f79-4d35-8f9a-6b80d989cb4d)
 3. **Data Statistics**: Backend support for statistical analysis of user data and behavior to help optimize recommendation algorithms and user experience.
-![13571722406299_ pic](https://github.com/user-attachments/assets/654182c0-19e0-4ae4-ac16-1e44d1fb78c0)
+
 
 
 ### Auxiliary Features
